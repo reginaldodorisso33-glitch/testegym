@@ -351,6 +351,8 @@ textarea{resize:vertical;min-height:46px}
 .star-row span{color:var(--border);cursor:pointer;transition:var(--trans);-webkit-tap-highlight-color:transparent}
 .star-row span:hover{transform:scale(1.15)}
 .star-row span.on{color:#f5c518;text-shadow:0 0 10px rgba(245,197,24,.4)}
+.star-row-auto span{cursor:default}
+.star-row-auto span:hover{transform:none}
 
 /* ---------- METAS ---------- */
 .goal-item{flex-direction:column;align-items:stretch;gap:10px}
@@ -521,9 +523,12 @@ textarea{resize:vertical;min-height:46px}
   --txt:#e8e5dc;
   --txt-dim:#aaa596;
   --txt-faint:#706b61;
-  --red:#d4d0c3;
-  --red-soft:rgba(212,208,195,.10);
-  --red-glow:rgba(212,208,195,.20);
+  --red:#d6483b;
+  --red-dk:#c0392b;
+  --red-soft:rgba(214,72,59,.12);
+  --red-glow:rgba(214,72,59,.32);
+  --gold:#caa24a;
+  --gold-lt:#e7c878;
   --radius:14px;
   --radius-sm:9px;
   --shadow:0 22px 70px rgba(0,0,0,.72);
@@ -629,27 +634,36 @@ h1,h2,h3,h4,.brand,.stat-num,.card-title,.nav-item,.mnav-item,label,.btn,.data-t
 
 /* dashboard como pôster/caderno */
 .hero-card{
-  min-height:240px;padding:28px!important;
+  padding:24px!important;
   background:
-    radial-gradient(circle at 80% 20%,rgba(232,229,220,.06),transparent 32%),
-    linear-gradient(160deg,rgba(232,229,220,.075),rgba(232,229,220,.018) 54%,rgba(0,0,0,.38)),#060606!important;
+    radial-gradient(circle at 85% 12%,rgba(214,72,59,.10),transparent 38%),
+    linear-gradient(160deg,rgba(232,229,220,.06),rgba(232,229,220,.015) 54%,rgba(0,0,0,.4)),#060606!important;
   border-color:rgba(232,229,220,.22)!important;
 }
-.hero-card:before{
-  content:"NÃO É SORTE.\AÉ PROCESSO.\AÉ ESCOLHA.\AÉ DIÁRIO.";
-  white-space:pre;position:relative;display:block;width:min(430px,100%);margin:-2px 0 24px 0;padding:22px 26px 20px;
-  background:linear-gradient(180deg,#c7c1b2,#9f998d);color:#151515;
-  font-family:'Oswald',sans-serif;font-size:clamp(20px,3.6vw,34px);line-height:1.28;letter-spacing:2px;
-  transform:rotate(-1.7deg);
-  clip-path:polygon(2% 7%,97% 0,100% 86%,91% 100%,4% 94%,0 31%);
-  box-shadow:0 16px 34px rgba(0,0,0,.55);
-  opacity:.82;z-index:1;
-}
-.hero-card:after{
-  content:"";position:absolute;right:30px;top:84px;width:170px;height:170px;border:3px solid rgba(232,229,220,.42);border-left-color:transparent;border-bottom-color:rgba(232,229,220,.18);border-radius:50%;transform:rotate(-14deg);opacity:.32;
-  box-shadow:inset 0 0 0 2px rgba(232,229,220,.10);
-}
 .hero-card .stat-num{font-size:46px!important}
+
+/* ---------- Resumo do Dia (A+ v1) ---------- */
+.resumo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.resumo-title{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:3px;color:#e8e5dc;text-transform:uppercase}
+.resumo-pct{font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:.8;color:#e7c878}
+.resumo-rows{display:flex;flex-direction:column;gap:16px}
+.rr-row{}
+.rr-top{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.rr-ic{font-size:20px;width:24px;text-align:center;flex:0 0 auto}
+.rr-l{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-dim);flex:1}
+.rr-v{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;color:#f0ece0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%}
+.rr-pct{font-family:'Oswald',sans-serif;font-size:12px;color:var(--txt-faint);margin-left:8px;flex:0 0 auto}
+.rr-track{height:8px;background:rgba(232,229,220,.09);overflow:hidden}
+.rr-track span{display:block;height:100%;background:linear-gradient(90deg,#c0392b,#e7c878);transition:width .6s ease}
+.rr-track span.full{background:linear-gradient(90deg,#caa24a,#e7c878)}
+.resumo-stats{display:flex;gap:10px;margin-top:16px}
+.resumo-stats .rs-block{flex:1;background:#0c0b08;border:1px solid rgba(232,229,220,.1);padding:11px;text-align:center}
+.resumo-stats .rs-v{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:#e8675b;line-height:1}
+.resumo-stats .rs-block.gold .rs-v{color:#e7c878}
+.resumo-stats .rs-l{font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--txt-faint);margin-top:4px}
+.resumo-prog{margin-top:18px}
+.resumo-prog-head{display:flex;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:8px}
+@media(max-width:380px){.resumo-pct{font-size:36px}.resumo-title{font-size:18px}.rr-v{font-size:15px}}
 
 /* papel rasgado em alguns blocos */
 .item-info .tag,.serie-chip,.suggestion,.goal-pct{
@@ -697,14 +711,13 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 .dot.red{background:#4b4740!important}.cal-cell.today{box-shadow:0 0 0 2px #d9d4c7!important}
 .star-row span.on{color:#d9d4c7!important;text-shadow:0 0 12px rgba(232,229,220,.20)!important}
 
-/* assinatura visual no dashboard */
+/* assinatura discreta no rodapé do dashboard */
 #view-dashboard .grid-a:after{
-  content:"RESPIRO. CONFIO. ESPERO. ENTREGO. ACEITO. AGRADEÇO. CONTINUA.";
-  grid-column:1/-1;display:block;padding:18px 24px;margin-top:2px;
-  background:linear-gradient(180deg,#bdb7a9,#8e887c);color:#111;
-  font-family:'Oswald';font-size:clamp(15px,2vw,22px);letter-spacing:1.8px;text-align:center;
-  clip-path:polygon(1% 7%,99% 0,100% 84%,96% 100%,0 92%);opacity:.78;
-  box-shadow:0 16px 36px rgba(0,0,0,.55);
+  content:"NÃO É SORTE. É PROCESSO.";
+  grid-column:1/-1;display:block;padding:22px 0 4px;margin-top:6px;
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:4px;
+  text-align:center;text-transform:uppercase;color:rgba(232,229,220,.32);
+  border-top:1px solid rgba(232,229,220,.08);
 }
 
 @media(max-width:860px){
@@ -712,8 +725,6 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
   .mobile-top .brand{font-size:24px}.brand:after{display:none}
   .page-head h1{font-size:48px}
   .card{padding:18px!important;border-radius:12px!important}
-  .hero-card{min-height:250px}.hero-card:after{right:18px;top:118px;width:132px;height:132px}
-  .hero-card:before{font-size:22px;width:88%;padding:18px 20px}
   .mnav-item span{font-size:9px;letter-spacing:.6px}
 }
 
@@ -813,6 +824,23 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
   .rpt-foot{margin-top:24px;padding-top:8px;border-top:1px solid #ccc;font-size:8pt;color:#888!important;text-align:center}
 }
 
+/* ---------- Calculadora de alimentos (refeições) ---------- */
+.food-calc{margin-top:14px;padding:14px;background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:12px}
+.food-calc-title{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.5px;color:var(--txt);text-transform:uppercase}
+.food-calc-title span{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0;text-transform:none;color:var(--txt-faint);font-weight:400}
+.food-calc-row{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.food-search-wrap{position:relative;flex:1 1 180px;min-width:160px}
+.food-search-wrap input{width:100%}
+.food-calc-row #fQty{width:80px;flex:0 0 auto}
+.food-unit{font-family:'Oswald',sans-serif;font-size:13px;color:var(--txt-dim);min-width:22px}
+.food-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:60;background:#13120d;border:1px solid var(--border);border-radius:10px;max-height:240px;overflow-y:auto;box-shadow:0 14px 34px rgba(0,0,0,.6);opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;-webkit-overflow-scrolling:touch}
+.food-drop.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.food-opt{padding:9px 12px;cursor:pointer;font-size:13.5px;border-bottom:1px solid rgba(232,229,220,.06)}
+.food-opt:last-child{border-bottom:0}
+.food-opt:hover{background:rgba(202,162,74,.12)}
+.food-opt small{display:block;color:var(--txt-faint);font-size:11px;margin-top:2px}
+.food-hint{font-size:11.5px;color:var(--txt-faint);margin-top:10px;line-height:1.4}
+
 /* ---------- Dashboard cards estilo A (industrial/stencil) ---------- */
 .grid-a{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .acard{
@@ -877,6 +905,74 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 .xp-row .xp-row-v{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;color:#e7c878}
 .xp-row .xp-row-v.zero{color:var(--txt-faint)}
 @media(max-width:860px){.xp-hero{gap:16px}.xp-level-badge{width:88px;height:88px}.xp-lv-num{font-size:38px}.xp-title{font-size:21px}}
+
+/* ---------- Ofensiva (streak) na aba Progresso ---------- */
+.streak-hero{display:flex;align-items:center;gap:20px;background:radial-gradient(circle at 12% 30%,rgba(214,72,59,.14),transparent 60%),linear-gradient(160deg,#16110f,#0e0c0a)}
+.streak-flame{font-size:54px;line-height:1;filter:drop-shadow(0 0 14px rgba(214,72,59,.45))}
+.streak-flame.cold{filter:grayscale(.7) opacity(.5)}
+.streak-info{flex:1 1 auto;min-width:0}
+.streak-num{font-family:'Oswald',sans-serif;font-weight:700;font-size:50px;line-height:.9;color:#e8675b}
+.streak-lbl{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-dim);margin-top:2px}
+.streak-meta{font-size:12.5px;color:var(--txt-faint);margin-top:8px;line-height:1.5}
+.streak-meta b{color:#e7c878;font-weight:600}
+@media(max-width:860px){.streak-flame{font-size:44px}.streak-num{font-size:42px}}
+
+/* ============================================================
+   CANTOS RETOS — visual industrial unificado (0px)
+   Cards, contêineres, botões e campos retangulares ficam retos.
+   Círculos (anéis, logo, dots) e barras de progresso preservam as curvas.
+   ============================================================ */
+.card, .exo-card, .acard, .mini-stat, .sleep-factor, .rpt-card, .rpt-chk,
+.food-calc, .food-drop, .food-opt, .story-wrap, .story-format-toggle .sfmt,
+.plan-day, .exo-prog, .exo-line, .set-row, .item, .empty, .cal-cell,
+.icon-btn, .btn, .btn-sm, .btn-ghost, .tag, .pr-tag, .level-chip,
+.streak-hero, .xp-hero, .modal, .search-drop, .search-opt, .rest-bar,
+input, select, textarea, .seg, .seg button, .data-table, .list .item,
+.suggest, .toast, .pr-banner, .sleep-advice, .badge2{
+  border-radius:0 !important;
+}
+/* mantém redondos: círculos e barras */
+.sleep-score-ring, .xp-level-badge, .level-chip .lc-num,
+.dot, .session-dot, .slider, .ring, .water-ring,
+.progress, .progress span, .bar, .bar span, .bar-mini, .bar-mini span,
+.xp-bar, .xp-bar-fill, svg circle{
+  border-radius:999px !important;
+}
+.sleep-score-ring, .xp-level-badge, .level-chip .lc-num,
+.dot, .session-dot{ border-radius:50% !important; }
+/* logo vira quadrado reto, combinando com o industrial */
+.brand .logo{ border-radius:0 !important; }
+
+/* ============================================================
+   ESQUEMA PRETO + DOURADO + VERMELHO (equilibrado)
+   Dourado = conquista/valor · Vermelho = ação/energia
+   ============================================================ */
+:root, body{ --red:#d6483b; --red-dk:#c0392b; }
+/* tags de grupo muscular (treino) em vermelho = ação/intensidade */
+.exo-card-head .tag, .item-info .tag{
+  background:rgba(214,72,59,.14)!important;border:1px solid rgba(214,72,59,.4)!important;color:#e8675b!important;filter:none!important;
+}
+/* selo de recorde (PR) em vermelho */
+.pr-tag{
+  background:linear-gradient(135deg,#d6483b,#c0392b)!important;color:#fff!important;filter:none!important;
+}
+/* marcador "hoje" no calendário e plano */
+.cal-cell.today{ box-shadow:0 0 0 2px #d6483b !important; }
+.plan-day.today{ border-color:#d6483b !important; }
+.dot.red{ background:#d6483b !important; }
+/* foco de campos volta ao vermelho */
+input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-shadow:0 0 0 3px rgba(214,72,59,.28)!important; }
+/* item de navegação ativo (mobile) com toque de vermelho */
+.mnav-item.active{ color:#e8675b!important; }
+.mnav-item.active .ic{ filter:none!important; }
+/* barra de progresso geral: degradê vermelho → dourado */
+#dashOverallBar, .progress span{
+  background:linear-gradient(90deg,#c0392b,#d6483b,#e7c878)!important;
+}
+/* botão de ação principal (iniciar treino / registrar) em vermelho */
+.btn-action, .btn-red{
+  background:linear-gradient(180deg,#d6483b,#c0392b)!important;color:#fff!important;
+}
 </style>
 </head>
 <body>
@@ -916,16 +1012,38 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
           <div class="date" id="todayLabel"></div>
         </div>
 
-        <!-- Barra de progresso geral do dia -->
-        <div class="card hero-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <div>
-              <div class="stat-label">Progresso Geral de Hoje</div>
-              <div class="stat-sub" id="dashOverallSub">Água, treino e refeições combinados</div>
-            </div>
-            <div class="stat-num accent" id="dashOverallPct" style="font-size:34px">0%</div>
+        <!-- Resumo do Dia -->
+        <div class="card hero-card resumo-card">
+          <div class="resumo-head">
+            <div class="resumo-title">RESUMO DO DIA</div>
+            <div class="resumo-pct"><span id="dashOverallPct">0%</span></div>
           </div>
-          <div class="progress" style="margin-top:14px;height:14px"><span id="dashOverallBar" style="width:0%"></span></div>
+          <div class="resumo-rows">
+            <div class="rr-row">
+              <div class="rr-top"><span class="rr-ic">🏋️</span><span class="rr-l">Treino</span><span class="rr-v" id="resTreino">—</span><span class="rr-pct" id="resTreinoPct"></span></div>
+              <div class="rr-track"><span id="resTreinoBar" style="width:0%"></span></div>
+            </div>
+            <div class="rr-row">
+              <div class="rr-top"><span class="rr-ic">💧</span><span class="rr-l">Água</span><span class="rr-v" id="resAgua">—</span><span class="rr-pct" id="resAguaPct"></span></div>
+              <div class="rr-track"><span id="resAguaBar" style="width:0%"></span></div>
+            </div>
+            <div class="rr-row">
+              <div class="rr-top"><span class="rr-ic">🍽️</span><span class="rr-l">Dieta</span><span class="rr-v" id="resDieta">—</span><span class="rr-pct" id="resDietaPct"></span></div>
+              <div class="rr-track"><span id="resDietaBar" style="width:0%"></span></div>
+            </div>
+            <div class="rr-row">
+              <div class="rr-top"><span class="rr-ic">😴</span><span class="rr-l">Sono</span><span class="rr-v" id="resSono">—</span><span class="rr-pct" id="resSonoPct"></span></div>
+              <div class="rr-track"><span id="resSonoBar" style="width:0%"></span></div>
+            </div>
+          </div>
+          <div class="resumo-stats">
+            <div class="rs-block"><div class="rs-v" id="resStreak">0</div><div class="rs-l">🔥 Ofensiva</div></div>
+            <div class="rs-block gold"><div class="rs-v" id="resXP">+0</div><div class="rs-l">⚡ XP hoje</div></div>
+          </div>
+          <div class="resumo-prog">
+            <div class="resumo-prog-head"><span>PROGRESSO DO DIA</span><span id="dashOverallSub">0% concluído</span></div>
+            <div class="progress" style="height:14px"><span id="dashOverallBar" style="width:0%"></span></div>
+          </div>
         </div>
 
         <div class="grid-a" style="margin-top:18px">
@@ -953,7 +1071,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
           <div class="acard acard-hot acard-wide" onclick="go('progresso')">
             <div class="acard-lbl">Dias Consecutivos</div>
             <div class="acard-num" id="dashStreak">0</div>
-            <div class="acard-sub">🔥 dias seguidos treinando</div>
+            <div class="acard-sub" id="dashStreakSub">🔥 dias seguidos treinando</div>
           </div>
         </div>
 
@@ -978,6 +1096,15 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
             <div class="xp-bar"><div class="xp-bar-fill" id="xpBarFill"></div></div>
             <div class="xp-bar-meta"><span id="xpInto">0 / 0 XP</span><span id="xpToNext">faltam 0 XP</span></div>
             <div class="xp-total" id="xpTotal">0 XP no total</div>
+          </div>
+        </div>
+
+        <div class="card streak-hero" style="margin-top:18px">
+          <div class="streak-flame" id="streakFlame">🔥</div>
+          <div class="streak-info">
+            <div class="streak-num" id="streakNum">0</div>
+            <div class="streak-lbl">dias de ofensiva</div>
+            <div class="streak-meta" id="streakMeta"></div>
           </div>
         </div>
 
@@ -1137,6 +1264,21 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
             <div><label>Proteína (g)</label><input id="mProt" type="number" min="0" placeholder="opcional"></div>
             <div class="field-full"><label>Descrição</label><textarea id="mDesc" placeholder="Ex: 2 ovos, aveia, banana..."></textarea></div>
           </div>
+
+          <div class="food-calc">
+            <div class="food-calc-title">🧮 Calcular por alimento <span>(opcional — soma automático)</span></div>
+            <div class="food-calc-row">
+              <div class="food-search-wrap">
+                <input id="fSearch" placeholder="Buscar alimento — ex: frango, arroz, ovo" autocomplete="off">
+                <div class="food-drop" id="fDrop"></div>
+              </div>
+              <input id="fQty" type="number" min="0" step="any" placeholder="qtd" inputmode="decimal">
+              <span class="food-unit" id="fUnit">g</span>
+              <button class="btn btn-sm" id="fAdd" type="button">＋ Somar</button>
+            </div>
+            <div class="food-hint" id="fHint">Escolha um alimento e informe a quantidade.</div>
+          </div>
+
           <div class="btn-row">
             <button class="btn" id="mAdd"><span>＋</span> Adicionar Refeição</button>
             <button class="btn btn-ghost" id="mCancel" style="display:none">Cancelar Edição</button>
@@ -1147,7 +1289,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 
       <!-- ===== PLANEJAMENTO ===== -->
       <section class="view" id="view-planejamento">
-        <div class="page-head"><h1>Planejamento Semanal</h1><div class="date">Defina o treino de cada dia — salva automaticamente</div></div>
+        <div class="page-head"><h1>Planejamento Semanal</h1><div class="date">Defina o treino de cada dia — salva automaticamente. Escreva "Descanso" no grupo para marcar folga (a ofensiva não exige treino nesse dia).</div></div>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))" id="planGrid"></div>
       </section>
 
@@ -1262,8 +1404,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
             <div><label>Tempo até dormir</label><select id="slpLatency"><option value="">Não informar</option><option value="10">Até 10 min</option><option value="20">10–20 min</option><option value="35">20–35 min</option><option value="60">Mais de 35 min</option></select></div>
             <div><label>Despertares</label><select id="slpWakeups"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3+</option></select></div>
             <div><label>Energia ao acordar</label><select id="slpEnergy"><option value="">Selecione</option><option value="1">1 — muito baixa</option><option value="2">2 — baixa</option><option value="3">3 — ok</option><option value="4">4 — boa</option><option value="5">5 — ótima</option></select></div>
-            <div class="field-full"><label>Qualidade percebida</label>
-              <div class="star-row" id="slpStars">
+            <div class="field-full"><label>Qualidade percebida <span style="text-transform:none;letter-spacing:0;color:var(--txt-faint);font-weight:400;font-size:11px">— calculada automaticamente</span></label>
+              <div class="star-row star-row-auto" id="slpStars">
                 <span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
               </div>
             </div>
@@ -1737,15 +1879,19 @@ function renderDashboard(){
   const vol = dayVolume(d);
   $('#dashVolume').textContent = `${vol.toLocaleString('pt-BR')} kg de volume`;
 
-  // Streak (dias consecutivos treinando até hoje)
-  $('#dashStreak').textContent = streakDays();
+  // Ofensiva (streak com protetor)
+  const of=computeOfensiva();
+  $('#dashStreak').textContent = of.streak;
+  const subEl=$('#dashStreakSub');
+  if(subEl){
+    let txt = `🔥 dias seguidos`;
+    if(of.best>of.streak) txt += ` · recorde ${of.best}`;
+    if(of.freezesAvail>0) txt += ` · ❄️ ${of.freezesAvail}`;
+    subEl.textContent = txt;
+  }
 
-  // Progresso geral do dia: média de água, treino feito e refeições (meta 3)
-  const trainScore = Math.min(100, d.exos.length>0?100:0);
-  const mealScore  = Math.min(100, d.meals.length/3*100);
-  const overall = Math.round((wpct + trainScore + mealScore)/3);
-  $('#dashOverallPct').textContent = overall+'%';
-  $('#dashOverallBar').style.width = overall+'%';
+  // Resumo do Dia (preenche o card principal + barra de progresso)
+  renderResumoDia();
 
   renderDashboardPRs();
 }
@@ -1786,6 +1932,57 @@ function exoSeries(e){
 //  tratados como 'barra' (multiplicador 1), ou seja, o
 //  comportamento idêntico ao de antes.
 // =====================================================
+// =====================================================
+//  TABELA DE ALIMENTOS (offline) — valores aproximados
+//  base: por 100g, salvo quando unit='un' (por unidade).
+//  cal = kcal, prot = proteína (g). Foco em dieta fitness BR.
+// =====================================================
+const FOODS = [
+  // Proteínas
+  {n:'Peito de frango grelhado', base:100, unit:'g', cal:165, prot:31},
+  {n:'Patinho/carne magra', base:100, unit:'g', cal:187, prot:26},
+  {n:'Carne moída (acém)', base:100, unit:'g', cal:215, prot:26},
+  {n:'Tilápia', base:100, unit:'g', cal:96, prot:20},
+  {n:'Salmão', base:100, unit:'g', cal:208, prot:20},
+  {n:'Atum (lata, drenado)', base:100, unit:'g', cal:116, prot:26},
+  {n:'Ovo inteiro', base:1, unit:'un', cal:72, prot:6.3},
+  {n:'Clara de ovo', base:1, unit:'un', cal:17, prot:3.6},
+  {n:'Whey protein (scoop)', base:1, unit:'un', cal:120, prot:24},
+  {n:'Iogurte natural integral', base:100, unit:'g', cal:61, prot:3.5},
+  {n:'Iogurte grego', base:100, unit:'g', cal:97, prot:9},
+  {n:'Queijo cottage', base:100, unit:'g', cal:98, prot:11},
+  {n:'Queijo muçarela', base:100, unit:'g', cal:280, prot:22},
+  {n:'Leite integral', base:100, unit:'ml', cal:61, prot:3.2},
+  {n:'Leite desnatado', base:100, unit:'ml', cal:35, prot:3.4},
+  // Carboidratos
+  {n:'Arroz branco cozido', base:100, unit:'g', cal:128, prot:2.5},
+  {n:'Arroz integral cozido', base:100, unit:'g', cal:124, prot:2.6},
+  {n:'Feijão cozido', base:100, unit:'g', cal:76, prot:4.8},
+  {n:'Batata doce cozida', base:100, unit:'g', cal:86, prot:1.6},
+  {n:'Batata inglesa cozida', base:100, unit:'g', cal:86, prot:1.7},
+  {n:'Mandioca/aipim cozido', base:100, unit:'g', cal:125, prot:1.4},
+  {n:'Macarrão cozido', base:100, unit:'g', cal:158, prot:5.8},
+  {n:'Aveia em flocos', base:100, unit:'g', cal:389, prot:17},
+  {n:'Pão francês', base:1, unit:'un', cal:135, prot:4},
+  {n:'Pão de forma integral', base:1, unit:'un', cal:70, prot:3.5},
+  {n:'Tapioca (goma)', base:100, unit:'g', cal:240, prot:0},
+  {n:'Cuscuz cozido', base:100, unit:'g', cal:112, prot:3.8},
+  // Frutas
+  {n:'Banana', base:1, unit:'un', cal:105, prot:1.3},
+  {n:'Maçã', base:1, unit:'un', cal:95, prot:0.5},
+  {n:'Laranja', base:1, unit:'un', cal:62, prot:1.2},
+  {n:'Morango', base:100, unit:'g', cal:32, prot:0.7},
+  {n:'Abacate', base:100, unit:'g', cal:160, prot:2},
+  {n:'Mamão', base:100, unit:'g', cal:43, prot:0.5},
+  // Gorduras / outros
+  {n:'Pasta de amendoim', base:100, unit:'g', cal:588, prot:25},
+  {n:'Amendoim', base:100, unit:'g', cal:567, prot:26},
+  {n:'Castanha de caju', base:100, unit:'g', cal:553, prot:18},
+  {n:'Azeite de oliva', base:100, unit:'ml', cal:884, prot:0},
+  {n:'Manteiga', base:100, unit:'g', cal:717, prot:0.9},
+  {n:'Brócolis cozido', base:100, unit:'g', cal:35, prot:2.4}
+];
+
 const LOAD_TYPES = {
   barra:      {label:'Barra',            mult:1, dual:false},
   halter_bi:  {label:'Halter bilateral', mult:2, dual:true },
@@ -1852,6 +2049,63 @@ function streakDays(){
     if(r && r.exos.length){ c++; d.setDate(d.getDate()-1); } else break;
   }
   return c;
+}
+
+// =====================================================
+//  OFENSIVA (streak) — dias consecutivos "cumpridos"
+//  (treino + água + sono), com protetor que perdoa 1 dia.
+//  Regras do protetor:
+//   - ganha 1 protetor a cada 7 dias de ofensiva (máx. 2);
+//   - um buraco de exatamente 1 dia é coberto por 1 protetor
+//     e a sequência continua;
+//   - buraco de 2+ dias zera a ofensiva.
+// =====================================================
+function addDaysKey(key, delta){
+  const d=new Date(key+'T00:00:00'); d.setDate(d.getDate()+delta); return todayKey(d);
+}
+function computeOfensiva(){
+  const today=todayKey();
+  // ponto de partida: hoje se já cumprido, senão ontem
+  // (o dia de hoje ainda não cumprido não quebra a ofensiva)
+  let cursor = isDiaCumprido(today) ? today : addDaysKey(today,-1);
+
+  // 1) conta a sequência SEM protetor
+  function contaSimples(start){
+    let n=0, p=start, g=0;
+    while(g++<3650 && isDiaCumprido(p)){ n++; p=addDaysKey(p,-1); }
+    return {len:n, stop:p}; // stop = primeiro dia que falhou
+  }
+  const base=contaSimples(cursor);
+  let streak=base.len, freezesUsed=0;
+
+  // 2) protetor: perdoa UM buraco de exatamente 1 dia na ofensiva,
+  //    sem exigir tamanho mínimo (espírito "streak freeze" do Duolingo).
+  //    Aplica uma vez; um segundo buraco encerra a contagem.
+  let stop=base.stop;
+  const aposBuraco=addDaysKey(stop,-1); // dia anterior ao buraco
+  if(isDiaCumprido(aposBuraco)){
+    const ext=contaSimples(aposBuraco);
+    freezesUsed=1;
+    streak += ext.len;     // soma o trecho recuperado (dia perdido não conta)
+    stop=ext.stop;
+  }
+
+  // protetores ainda disponíveis: 1 por semana de ofensiva, menos o usado
+  const freezesAvail = Math.max(0, Math.min(2, Math.floor(streak/7)) - freezesUsed);
+  const best = Math.max(bestOfensiva(), streak);
+  return {streak, best, freezesAvail, freezesUsed, hojeOk:isDiaCumprido(today)};
+}
+function bestOfensiva(){
+  const keys=Object.keys(state.days).filter(k=>isDiaCumprido(k)).sort();
+  // inclui também dias de sono que possam não estar em state.days
+  if(!keys.length) return 0;
+  let best=0, run=1;
+  for(let i=1;i<keys.length;i++){
+    if(addDaysKey(keys[i-1],1)===keys[i]) run++;
+    else run=1;
+    if(run>best) best=run;
+  }
+  return Math.max(best, run, keys.length?1:0);
 }
 
 // Retorna nº de dias treinados na semana atual (domingo→sábado)
@@ -2241,6 +2495,69 @@ function delMeal(id){
 function clearMealForm(){
   editMealId=null; $('#mDesc').value=''; $('#mCal').value=''; $('#mProt').value='';
   $('#mAdd').innerHTML='<span>＋</span> Adicionar Refeição'; $('#mCancel').style.display='none';
+  if($('#fSearch')){ $('#fSearch').value=''; $('#fQty').value=''; fSelected=null; $('#fUnit').textContent='g'; $('#fHint').textContent='Escolha um alimento e informe a quantidade.'; }
+}
+
+// ---- Calculadora de alimentos (tabela offline) ----
+let fSelected=null;
+function fNorm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function renderFoodDrop(q){
+  const drop=$('#fDrop'); const term=fNorm(q);
+  let list = term ? FOODS.filter(f=>fNorm(f.n).includes(term)) : FOODS.slice(0,8);
+  list = list.slice(0,8);
+  drop.innerHTML = list.length
+    ? list.map(f=>`<div class="food-opt" data-name="${esc(f.n)}">${esc(f.n)} <small>${f.cal} kcal · ${f.prot}g prot / ${f.unit==='un'?'un':f.base+f.unit}</small></div>`).join('')
+    : `<div class="food-opt" style="color:var(--txt-faint)">Nada encontrado — use a entrada manual</div>`;
+  drop.classList.add('open');
+}
+function pickFood(name){
+  fSelected = FOODS.find(f=>f.n===name) || null;
+  if(!fSelected) return;
+  $('#fSearch').value=fSelected.n;
+  $('#fUnit').textContent = fSelected.unit==='un' ? 'un' : fSelected.unit;
+  $('#fDrop').classList.remove('open');
+  $('#fHint').textContent = fSelected.unit==='un'
+    ? `${fSelected.n}: ${fSelected.cal} kcal e ${fSelected.prot}g por unidade.`
+    : `${fSelected.n}: ${fSelected.cal} kcal e ${fSelected.prot}g por ${fSelected.base}${fSelected.unit}.`;
+  $('#fQty').focus();
+}
+function addFood(){
+  if(!fSelected){ toast('Escolha um alimento da lista'); return; }
+  const qty=+$('#fQty').value||0;
+  if(qty<=0){ toast('Informe a quantidade'); return; }
+  // fator: por unidade usa qty direto; por peso/volume usa qty/base
+  const factor = fSelected.unit==='un' ? qty/fSelected.base : qty/fSelected.base;
+  const cal=Math.round(fSelected.cal*factor);
+  const prot=Math.round(fSelected.prot*factor*10)/10;
+  // soma nos campos existentes (convive com o manual)
+  $('#mCal').value = (+$('#mCal').value||0) + cal;
+  $('#mProt').value = Math.round(((+$('#mProt').value||0) + prot)*10)/10;
+  // acrescenta na descrição
+  const qtyTxt = fSelected.unit==='un' ? `${qty}x ${fSelected.n}` : `${qty}${fSelected.unit} ${fSelected.n}`;
+  const cur=$('#mDesc').value.trim();
+  $('#mDesc').value = cur ? `${cur}, ${qtyTxt}` : qtyTxt;
+  toast(`+${cal} kcal · +${prot}g 🧮`);
+  // limpa pra próximo alimento
+  $('#fSearch').value=''; $('#fQty').value=''; fSelected=null;
+  $('#fUnit').textContent='g'; $('#fHint').textContent='Adicione outro alimento ou registre a refeição.';
+  $('#fSearch').focus();
+}
+const fSearchEl=$('#fSearch');
+if(fSearchEl){
+  let fDebounce=null;
+  const doSearch=()=>{ fSelected=null; renderFoodDrop(fSearchEl.value); };
+  fSearchEl.addEventListener('focus',()=>{
+    renderFoodDrop(fSearchEl.value);
+    // garante que o dropdown não fique atrás do teclado no celular
+    setTimeout(()=>fSearchEl.scrollIntoView({block:'center',behavior:'smooth'}),120);
+  });
+  fSearchEl.addEventListener('input',()=>{
+    clearTimeout(fDebounce);
+    fDebounce=setTimeout(doSearch,60);
+  });
+  $('#fDrop').addEventListener('click',e=>{ const o=e.target.closest('.food-opt'); if(o&&o.dataset.name) pickFood(o.dataset.name); });
+  $('#fAdd').addEventListener('click',addFood);
+  $('#fQty').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); addFood(); }});
 }
 
 // =====================================================
@@ -2351,7 +2668,10 @@ tDrop.addEventListener('click',e=>{
   tDrop.classList.remove('open');
   showSuggestion(tNameInput.value);
 });
-document.addEventListener('click',e=>{ if(!e.target.closest('.search-select')) tDrop.classList.remove('open'); });
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.search-select')) tDrop.classList.remove('open');
+  if(!e.target.closest('.food-search-wrap')){ const fd=$('#fDrop'); if(fd) fd.classList.remove('open'); }
+});
 
 // =====================================================
 //  SUGESTÃO DE PROGRESSÃO — Modo Treino
@@ -2486,12 +2806,26 @@ function levelFromXP(xp){
 }
 
 // "Dia cumprido" = treino + meta de água + sono no mesmo dia
+// Detecta se o dia (YYYY-MM-DD) é de descanso, conforme o Planejamento.
+// O grupo do dia da semana contém palavras como "descanso", "folga", "off", "rest".
+function isDiaDescanso(key){
+  const dow=new Date(key+'T00:00:00').getDay();
+  const p=(state.plan||[])[dow];
+  if(!p) return false;
+  const txt=`${p.group||''} ${p.obs||''}`.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  return /\b(descanso|descansar|folga|off|rest|repouso|nao treina|sem treino)\b/.test(txt);
+}
+
 function isDiaCumprido(key){
   const d=state.days[key];
   const treinou = d && d.exos && d.exos.some(e=>exoDoneCount(e)>0 || exoSeries(e).length>0);
   const goal=state.goalWater||0;
   const aguaOk = d && goal>0 && (d.water||0)>=goal;
   const dormiu = (state.sleep||[]).some(s=>s.date===key);
+  // Em dia de descanso planejado, não exige treino — só água + sono.
+  // (água + sono mantêm o hábito mesmo na folga)
+  if(isDiaDescanso(key)) return !!(aguaOk && dormiu);
   return !!(treinou && aguaOk && dormiu);
 }
 
@@ -2530,6 +2864,84 @@ function computeXP(){
   return {total, breakdown};
 }
 
+// XP ganho APENAS num dia específico (para o Resumo do Dia)
+function xpOfDay(key){
+  const d=state.days[key]; const goal=state.goalWater||0;
+  let xp=0;
+  if(d){
+    const exos=(d.exos||[]).filter(e=>exoSeries(e).length>0);
+    if(exos.length){ xp+=XP_RULES.treino; exos.forEach(e=>xp+=exoDoneCount(e)*XP_RULES.serie); }
+    if(goal>0 && (d.water||0)>=goal) xp+=XP_RULES.agua;
+    xp += (d.meals?d.meals.length:0)*XP_RULES.refeicao;
+  }
+  if((state.sleep||[]).some(s=>s.date===key)) xp+=XP_RULES.sono;
+  if(isDiaCumprido(key)) xp+=XP_RULES.diaCumprido;
+  return xp;
+}
+
+// Preenche o card "Resumo do Dia" do dashboard
+function renderResumoDia(){
+  if(!$('#resTreino')) return;
+  const key=todayKey(); const d=state.days[key]||{exos:[],water:0,meals:[]};
+  const goal=state.goalWater||0;
+
+  // helper para preencher valor + % + barra de um item
+  const setItem=(prefix, valTxt, pct, full)=>{
+    pct=Math.max(0,Math.min(100,Math.round(pct)));
+    $('#res'+prefix).textContent=valTxt;
+    $('#res'+prefix+'Pct').textContent=pct+'%';
+    const bar=$('#res'+prefix+'Bar');
+    bar.style.width=pct+'%';
+    bar.classList.toggle('full', full || pct>=100);
+  };
+
+  // Treino
+  const plan=(state.plan||[])[new Date().getDay()]||{};
+  const treinou=(d.exos||[]).some(e=>exoSeries(e).length>0);
+  const descanso=isDiaDescanso(key);
+  let treinoTxt;
+  if(descanso) treinoTxt = treinou ? 'Descanso ✔' : 'Descanso 😴';
+  else if(plan.group) treinoTxt = `${plan.group}${treinou?' ✔':''}`;
+  else treinoTxt = treinou ? 'Feito ✔' : 'Sem treino';
+  const treinoDone = treinou || descanso;
+  setItem('Treino', treinoTxt, treinoDone?100:0, treinoDone);
+
+  // Água
+  const water=d.water||0;
+  const aguaTxt = goal? `${(water/1000).toFixed(1)}L / ${(goal/1000).toFixed(1)}L` : `${water} ml`;
+  const aguaPct = goal? water/goal*100 : 0;
+  setItem('Agua', aguaTxt, aguaPct);
+
+  // Dieta (meta 5 refeições)
+  const meals=(d.meals||[]).length, metaRef=5;
+  setItem('Dieta', `${meals}/${metaRef} refeições`, meals/metaRef*100);
+
+  // Sono (da noite de hoje)
+  const slp=(state.sleep||[]).find(s=>s.date===key);
+  if(slp){
+    const sonoTxt=`${fmtSleep(slp.mins)} ${slp.quality?'⭐'.repeat(slp.quality):''}`.trim();
+    // % baseada na qualidade (1-5 estrelas) ou em 7h se sem estrela
+    const sonoPct = slp.quality? slp.quality*20 : Math.min(100, slp.mins/420*100);
+    setItem('Sono', sonoTxt, sonoPct, slp.quality>=5);
+  } else {
+    setItem('Sono', '—', 0);
+  }
+
+  // Ofensiva + XP (blocos de destaque)
+  const of=computeOfensiva();
+  $('#resStreak').textContent = of.streak;
+  $('#resXP').textContent = `+${xpOfDay(key)}`;
+
+  // Progresso geral do dia: média de água, treino e dieta
+  const wScore = goal? Math.min(100, water/goal*100) : 0;
+  const tScore = treinoDone ? 100 : 0;
+  const mScore = Math.min(100, meals/metaRef*100);
+  const overall = Math.round((wScore + tScore + mScore)/3);
+  $('#dashOverallPct').textContent = overall+'%';
+  $('#dashOverallBar').style.width = overall+'%';
+  $('#dashOverallSub').textContent = overall+'% concluído';
+}
+
 function updateLevelChip(){
   const {total}=computeXP();
   const lv=levelFromXP(total);
@@ -2545,6 +2957,21 @@ function updateLevelChip(){
 function renderProgress(){
   if(!$('#xpLevel')) return;
   updateLevelChip();
+  // Ofensiva
+  const of=computeOfensiva();
+  const numEl=$('#streakNum'), flameEl=$('#streakFlame'), metaEl=$('#streakMeta');
+  if(numEl){
+    numEl.textContent=of.streak;
+    flameEl.classList.toggle('cold', of.streak===0);
+    let parts=[];
+    const hojeDescanso=isDiaDescanso(todayKey());
+    if(of.hojeOk) parts.push('✅ hoje já conta');
+    else if(hojeDescanso) parts.push('😴 descanso — cumpra água + sono hoje');
+    else parts.push('⏳ cumpra treino + água + sono hoje');
+    parts.push(`recorde: <b>${of.best}</b> dias`);
+    parts.push(of.freezesAvail>0 ? `❄️ protetores: <b>${of.freezesAvail}</b>` : 'sem protetor disponível');
+    metaEl.innerHTML=parts.join(' · ');
+  }
   const {total, breakdown}=computeXP();
   const lv=levelFromXP(total);
   $('#xpLevel').textContent=lv.level;
@@ -2868,12 +3295,59 @@ function normalizeSleepRecord(x, previous=[]){
 function updateSleepDur(){
   const mins=sleepMinutes($('#slpStart').value,$('#slpEnd').value);
   $('#slpDur').value = mins? fmtSleep(mins) : '';
+  autoQuality();
 }
 $('#slpStart').addEventListener('input',updateSleepDur);
 $('#slpEnd').addEventListener('input',updateSleepDur);
 
 function paintStars(n){ $$('#slpStars span').forEach(s=>s.classList.toggle('on', +s.dataset.star<=n)); }
-$$('#slpStars span').forEach(s=>s.addEventListener('click',()=>{ slpQuality=+s.dataset.star; paintStars(slpQuality); }));
+
+// Calcula a qualidade (1-5 estrelas) automaticamente a partir de
+// duração + despertares + tempo até dormir + energia ao acordar.
+// Pontua 0-100 e converte para estrelas.
+function computeSleepQuality(){
+  const mins=sleepMinutes($('#slpStart').value,$('#slpEnd').value);
+  // a duração é essencial: sem ela, não há como avaliar a qualidade
+  if(!mins) return 0;
+
+  let score=0, peso=0;
+
+  // Duração (peso 40): ideal 7-9h
+  const h=mins/60; let d;
+  if(h>=7 && h<=9) d=100;
+  else if(h>=6 && h<7) d=75;
+  else if(h>9 && h<=10) d=82;
+  else if(h>=5 && h<6) d=50;
+  else if(h>10) d=65;
+  else d=28; // menos de 5h
+  score+=d*0.40; peso+=0.40;
+
+  // Despertares (peso 25): 0 melhor
+  const w=+$('#slpWakeups').value||0;
+  const dw=[100,72,48,22][Math.min(w,3)];
+  score+=dw*0.25; peso+=0.25;
+  // Tempo até dormir (peso 15): quanto menor, melhor; vazio = neutro
+  const lat=$('#slpLatency').value;
+  if(lat!==''){
+    const L=+lat;
+    const dl = L<=10?100 : L<=20?78 : L<=35?52 : 28;
+    score+=dl*0.15; peso+=0.15;
+  }
+  // Energia ao acordar (peso 20)
+  const energy=+$('#slpEnergy').value||0;
+  if(energy){ score+=(energy*20)*0.20; peso+=0.20; }
+
+  const final = score/peso;           // normaliza pelos pesos realmente usados
+  return Math.max(1, Math.min(5, Math.round(final/20))); // 0-100 -> 1-5 estrelas
+}
+function autoQuality(){
+  slpQuality = computeSleepQuality();
+  paintStars(slpQuality);
+}
+// recalcula sempre que um dos fatores muda
+['slpWakeups','slpLatency','slpEnergy'].forEach(id=>{
+  const el=$('#'+id); if(el) el.addEventListener('change',autoQuality);
+});
 
 // Setinha de tendência: compara o valor atual contra uma referência
 // (média dos registros anteriores). higherIsBetter define a cor.
@@ -2978,6 +3452,7 @@ $('#slpAdd').addEventListener('click',()=>{
   if(!mins){ toast('Horários inválidos'); return; }
   const date=$('#slpDate').value||todayKey();
   const previous=[...state.sleep].filter(x=>x.date!==date).sort((a,b)=>a.date.localeCompare(b.date));
+  autoQuality(); // garante que a qualidade reflete os campos atuais
   const rec={
     id:uid(), date, start, end, mins,
     quality:slpQuality,
