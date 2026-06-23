@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="splashing">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +43,10 @@ body{
   color:var(--txt);
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
+}
+html.splashing, html.splashing body{
+  overflow:hidden !important;
+  height:100% !important;
 }
 h1,h2,h3,h4,.brand,.stat-num{font-family:'Oswald',sans-serif;letter-spacing:.5px}
 ::-webkit-scrollbar{width:9px;height:9px}
@@ -918,10 +922,73 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 @media(max-width:860px){.streak-flame{font-size:44px}.streak-num{font-size:42px}}
 
 /* ============================================================
-   CANTOS RETOS — visual industrial unificado (0px)
-   Cards, contêineres, botões e campos retangulares ficam retos.
-   Círculos (anéis, logo, dots) e barras de progresso preservam as curvas.
+   SPLASH DE ENTRADA
    ============================================================ */
+#splash{
+  position:fixed;inset:0;z-index:9999;background:#050505;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;overflow:hidden;
+}
+#splash.sp-hide{
+  animation:spFadeOut .5s ease forwards;
+}
+@keyframes spFadeOut{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+
+/* bordas animadas */
+.sp-border-top{
+  position:absolute;top:12%;left:8%;right:8%;height:3px;
+  background:linear-gradient(90deg,#d6483b,#e7c878);
+  transform-origin:left;transform:scaleX(0);
+}
+.sp-border-bot{
+  position:absolute;bottom:12%;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(231,200,120,.35),transparent);
+  transform-origin:left;transform:scaleX(0);
+}
+.sp-border-left{
+  position:absolute;top:12%;left:8%;width:1px;height:0;
+  background:linear-gradient(180deg,#d6483b,rgba(214,72,59,0));
+}
+.sp-border-right{
+  position:absolute;bottom:12%;right:8%;width:1px;height:0;
+  background:linear-gradient(0deg,#e7c878,rgba(231,200,120,0));
+}
+.sp-content{
+  text-align:center;padding:0 14%;
+  display:flex;flex-direction:column;align-items:center;
+}
+.sp-name{
+  font-family:'Oswald',sans-serif;font-size:38px;font-weight:700;
+  letter-spacing:3px;color:#fff;display:block;line-height:1;opacity:0;
+}
+.sp-sub{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:300;
+  letter-spacing:6px;color:rgba(232,229,220,.3);display:block;
+  margin-top:10px;text-transform:uppercase;opacity:0;
+}
+.sp-tag{
+  font-family:'Cormorant Garamond','Georgia',serif;font-style:italic;
+  font-size:13px;color:rgba(232,229,220,.28);display:block;
+  margin-top:18px;letter-spacing:1px;opacity:0;
+}
+
+/* sequência de animação */
+@keyframes spGrowR{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes spGrowDown{0%{height:0}100%{height:72%}}
+@keyframes spGrowUp{0%{height:0}100%{height:72%}}
+@keyframes spFadeUp{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+@keyframes spFadeIn{0%{opacity:0}100%{opacity:1}}
+
+#splash.sp-run .sp-border-top{animation:spGrowR .55s .1s cubic-bezier(.4,0,.2,1) forwards}
+#splash.sp-run .sp-border-left{animation:spGrowDown .4s .65s ease forwards}
+#splash.sp-run .sp-border-right{animation:spGrowUp .4s .65s ease forwards}
+#splash.sp-run .sp-border-bot{animation:spGrowR .4s 1.05s cubic-bezier(.4,0,.2,1) forwards}
+#splash.sp-run .sp-name{animation:spFadeUp .55s 1.3s ease forwards}
+#splash.sp-run .sp-sub{animation:spFadeIn .45s 1.7s ease forwards}
+#splash.sp-run .sp-tag{animation:spFadeIn .45s 2.0s ease forwards}
+
+/* ============================================================
+   CANTOS RETOS — visual industrial unificado (0px)
 .card, .exo-card, .acard, .mini-stat, .sleep-factor, .rpt-card, .rpt-chk,
 .food-calc, .food-drop, .food-opt, .story-wrap, .story-format-toggle .sfmt,
 .plan-day, .exo-prog, .exo-line, .set-row, .item, .empty, .cal-cell,
@@ -976,6 +1043,19 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
 </style>
 </head>
 <body>
+
+<!-- ============ SPLASH DE ENTRADA ============ -->
+<div id="splash">
+  <div class="sp-border-top"></div>
+  <div class="sp-border-bot"></div>
+  <div class="sp-border-left"></div>
+  <div class="sp-border-right"></div>
+  <div class="sp-content">
+    <span class="sp-name">GYMTRACK</span>
+    <span class="sp-sub">diário de disciplina</span>
+    <span class="sp-tag">não é sorte. é processo.</span>
+  </div>
+</div>
 
 <div class="app">
   <!-- ============ SIDEBAR (desktop) ============ -->
@@ -3638,6 +3718,22 @@ function init(){
   resumeSession(); // retoma cronômetro se houver treino em andamento
   updateLevelChip(); // mostra o nível no chip do topo
 }
+
+// ── Splash de entrada ──
+(function(){
+  const sp=document.getElementById('splash');
+  if(!sp) return;
+  document.documentElement.classList.add('splashing');
+  sp.classList.add('sp-run');
+  setTimeout(()=>{
+    sp.classList.add('sp-hide');
+    setTimeout(()=>{
+      sp.style.display='none';
+      document.documentElement.classList.remove('splashing');
+    }, 520);
+  }, 2600);
+})();
+
 init();
 
 
@@ -3766,142 +3862,124 @@ function drawStoryReportStory(){
   const maxItems=5;
   const list=(data.exercises||[]).slice(0,maxItems);
 
-  function calcExerciseBoxH(e){
-    const series=e.series||[];
-    const cols=series.length>=4 ? 2 : 1;
-    const rows=Math.max(1, Math.ceil(series.length/cols));
-    return Math.max(128, 92 + rows*30);
-  }
+  // altura dinâmica baseada nos exercícios
+  const EXO_START=820;
+  const EXO_H=210; // altura por exercício
+  const totalExoH=list.length*EXO_H + (list.length>1?(list.length-1)*20:0);
+  const H=Math.max(1920, EXO_START+totalExoH+220);
 
-  // Altura dinâmica: evita que o último exercício fique por baixo do rodapé.
-  // Mantém 1920px como mínimo para continuar com cara de Story.
-  const exerciseStartY=715;
-  let endY=exerciseStartY;
-  list.forEach(e=>{ endY += calcExerciseBoxH(e) + 12; });
-  if((data.exercises||[]).length>maxItems) endY += 34;
-  const footerY=endY + 44;
-  const dynamicH=Math.ceil(footerY + 200);
-  canvas.width=W;
-  canvas.height=Math.max(1920, dynamicH);
-
+  canvas.width=W; canvas.height=H;
   const ctx=canvas.getContext('2d');
-  const H=canvas.height;
 
-  // fundo dark clean, sem riscos aleatórios no print/story
-  const grd=ctx.createLinearGradient(0,0,0,H);
-  grd.addColorStop(0,'#000000');
-  grd.addColorStop(.50,'#030303');
-  grd.addColorStop(1,'#000000');
-  ctx.fillStyle=grd;
+  // fundo preto puro
+  ctx.fillStyle='#050505';
   ctx.fillRect(0,0,W,H);
 
-  // textura bem sutil apenas para não ficar chapado/artificial
-  ctx.save();
-  ctx.globalAlpha=.025;
-  storyNoise(ctx,W,H);
-  ctx.restore();
-  ctx.globalAlpha=1;
+  // barra degradê no topo (vermelho → dourado)
+  const barGrd=ctx.createLinearGradient(0,0,W,0);
+  barGrd.addColorStop(0,'#c0392b');
+  barGrd.addColorStop(1,'#e7c878');
+  ctx.fillStyle=barGrd;
+  ctx.fillRect(0,0,W,8);
 
-  // palavras de fundo discretas, sem linhas/rabiscos
-  ctx.save();
-  ctx.translate(-90,210);
-  ctx.rotate(-0.08);
-  ctx.font='43px Special Elite, Oswald, monospace';
-  ctx.fillStyle='rgba(232,229,220,.010)';
-  const words='disciplina   constância   fé   processo   continua';
-  for(let yy=0; yy<H; yy+=220){
-    ctx.fillText(words,0,yy);
-    ctx.fillText(words,540,yy+95);
-  }
-  ctx.restore();
+  const PAD=88;
 
-  // etiqueta superior
-  ctx.fillStyle='#c8c1b1'; ctx.save(); ctx.translate(75,58); ctx.rotate(-0.025);
-  ctx.beginPath(); ctx.moveTo(0,22); ctx.lineTo(740,0); ctx.lineTo(780,142); ctx.lineTo(38,164); ctx.closePath(); ctx.fill();
-  ctx.fillStyle='#101010'; ctx.font='700 52px Oswald, sans-serif'; ctx.fillText('RELATÓRIO DO TREINO',38,72);
-  ctx.font='25px Oswald, sans-serif'; ctx.fillText(`${data.weekday}  •  ${data.date}`,42,118); ctx.restore();
+  // eyebrow — data
+  ctx.fillStyle='rgba(232,229,220,.3)';
+  ctx.font='32px Oswald, sans-serif';
+  ctx.fillText(`GYMTRACK  ·  ${data.weekday.toUpperCase()}  ${data.date}`,PAD,90);
 
-  // resumo principal — sobe para preencher o espaço do título removido
-  storyRoundRect(ctx,70,235,940,300,30); ctx.fillStyle='rgba(255,255,255,.043)'; ctx.fill(); ctx.strokeStyle='rgba(232,229,220,.18)'; ctx.lineWidth=2; ctx.stroke();
-  ctx.fillStyle='rgba(232,229,220,.18)'; ctx.fillRect(116,298,848,2);
-  ctx.font='700 39px Oswald, sans-serif'; ctx.fillStyle='#d8d2c4'; ctx.fillText(storyWorkoutTitle(data.workout),116,285);
-
-  const stats=[['DURAÇÃO',data.duration],['VOLUME',`${Math.round(data.volume).toLocaleString('pt-BR')} KG`],['EXERCÍCIOS',String(data.exoCount)],['SÉRIES',`${data.setsDone}/${data.setsTotal}`]];
-  stats.forEach((st,i)=>{
-    const x=116+(i%2)*430, yy=360+Math.floor(i/2)*76;
-    ctx.fillStyle='rgba(232,229,220,.55)'; ctx.font='21px Oswald, sans-serif'; ctx.fillText(st[0],x,yy);
-    ctx.fillStyle='#f0ece0'; ctx.font='700 46px Oswald, sans-serif'; ctx.fillText(st[1],x,yy+48);
+  // stats row (duração / exercícios / séries)
+  const stats=[
+    {l:'DURAÇÃO', v:data.duration},
+    {l:'EXERCÍCIOS', v:String(data.exoCount)},
+    {l:'SÉRIES', v:`${data.setsDone}/${data.setsTotal}`},
+  ];
+  const colW=(W-PAD*2)/3;
+  stats.forEach((s,i)=>{
+    const x=PAD+i*colW;
+    ctx.fillStyle='rgba(232,229,220,.28)';
+    ctx.font='26px Oswald, sans-serif';
+    ctx.fillText(s.l, x, 175);
+    ctx.fillStyle='#e8e5dc';
+    ctx.font='700 48px Oswald, sans-serif';
+    ctx.fillText(s.v, x, 232);
   });
-  // horário separado embaixo para não encavalar com o número de exercícios
-  ctx.fillStyle='rgba(232,229,220,.58)'; ctx.font='21px Oswald, sans-serif'; ctx.fillText(`INÍCIO ${data.start}  •  FIM ${data.end}`,116,510);
 
-  // relatório detalhado de exercícios e séries — layout vertical em mini-cards
-  ctx.fillStyle='#d8d2c4'; ctx.font='700 38px Oswald, sans-serif'; ctx.fillText('EXERCÍCIOS + SÉRIES',70,615);
-  ctx.fillStyle='rgba(232,229,220,.14)'; ctx.fillRect(70,637,500,2);
+  // volume gigante
+  ctx.fillStyle='#ffffff';
+  ctx.font='700 196px Oswald, sans-serif';
+  ctx.fillText(Math.round(data.volume).toLocaleString('pt-BR'), PAD, 490);
+  ctx.fillStyle='rgba(232,229,220,.28)';
+  ctx.font='300 40px Oswald, sans-serif';
+  ctx.fillText('KG MOVIMENTADOS', PAD, 548);
 
-  let y=exerciseStartY;
+  // divisor
+  ctx.fillStyle='rgba(255,255,255,.07)';
+  ctx.fillRect(PAD,600,W-PAD*2,2);
+
+  // título seção exercícios
+  ctx.fillStyle='rgba(232,229,220,.22)';
+  ctx.font='28px Oswald, sans-serif';
+  ctx.fillText('EXERCÍCIOS + SÉRIES', PAD, 680);
+
+  // linha sutil abaixo do título
+  ctx.fillStyle='rgba(232,229,220,.08)';
+  ctx.fillRect(PAD,698,500,1);
+
+  // lista de exercícios
+  let y=EXO_START;
   list.forEach((e,i)=>{
-    const series=e.series||[];
-    const lineH=30;
-    const cols=series.length>=4 ? 2 : 1;
-    const rows=Math.max(1, Math.ceil(series.length/cols));
-    const boxH=calcExerciseBoxH(e);
+    // nome do exercício
+    ctx.fillStyle='#e8e5dc';
+    ctx.font='700 38px Oswald, sans-serif';
+    storyText(ctx, String(e.name||'EXERCÍCIO').toUpperCase(), PAD, y, W-PAD*2, 40);
 
-    // card do exercício
-    storyRoundRect(ctx,70,y-50,940,boxH,18);
-    ctx.fillStyle=i%2?'rgba(255,255,255,.030)':'rgba(255,255,255,.050)';
-    ctx.fill();
-    ctx.strokeStyle='rgba(232,229,220,.08)'; ctx.lineWidth=1; ctx.stroke();
+    // top set em vermelho
+    const topLoad = e.series&&e.series.length? e.series[0].loadLabel||e.series[0].load+'kg' : '—';
+    ctx.fillStyle='#d6483b';
+    ctx.font='28px Oswald, sans-serif';
+    ctx.fillText(`top ${topLoad}  ·  ${e.doneSets||e.sets} séries`, PAD, y+50);
 
-    // número + nome
-    ctx.fillStyle='rgba(232,229,220,.52)'; ctx.font='700 23px Oswald, sans-serif';
-    ctx.fillText(`${i+1}.`,104,y-16);
-    ctx.fillStyle='#eee9dc'; ctx.font='700 29px Oswald, sans-serif';
-    storyText(ctx,String(e.name||'EXERCÍCIO').toUpperCase(),145,y-16,720,30);
+    // séries compactas numa linha (carga × reps)
+    const seriesTxt=(e.series||[]).map(s=>`${s.loadLabel||s.load+'kg'}×${s.reps}`).join('  ·  ');
+    ctx.fillStyle='rgba(232,229,220,.38)';
+    ctx.font='26px Oswald, sans-serif';
+    storyText(ctx, seriesTxt, PAD, y+90, W-PAD*2, 30);
 
-    // resumo abaixo do nome, sem card lateral
-    ctx.fillStyle='rgba(232,229,220,.12)';
-    ctx.fillRect(104,y+2,820,1);
-    ctx.fillStyle='rgba(232,229,220,.68)'; ctx.font='21px Oswald, sans-serif';
-    ctx.fillText(`${e.doneSets||e.sets}/${e.sets} SÉRIES`,104,y+30);
-    ctx.fillStyle='#f3eee2'; ctx.font='700 25px Oswald, sans-serif';
-    ctx.fillText(`${Math.round(e.doneVolume||e.volume).toLocaleString('pt-BR')} KG`,250,y+30);
+    // divisor entre exercícios
+    if(i<list.length-1){
+      ctx.fillStyle='rgba(255,255,255,.06)';
+      ctx.fillRect(PAD, y+120, W-PAD*2, 1);
+    }
 
-    // séries em 1 ou 2 colunas, com mais respiro e sem sobrepor o rodapé
-    const sx1=104, sx2=548;
-    let sy=y+62;
-    series.forEach((s,idx)=>{
-      const col=(cols===2 && idx>=rows)?1:0;
-      const row=(cols===2 && idx>=rows)?idx-rows:idx;
-      const sx=col?sx2:sx1;
-      const yy=sy+row*lineH;
-      ctx.fillStyle=s.done?'rgba(232,229,220,.78)':'rgba(232,229,220,.38)';
-      ctx.font='22px Oswald, sans-serif';
-      ctx.fillText(`${s.done?'✓':'○'} ${s.n}ª`,sx,yy);
-      ctx.fillStyle=s.done?'#f0ece0':'rgba(232,229,220,.55)';
-      ctx.font='700 25px Oswald, sans-serif';
-      ctx.fillText(`${s.loadLabel||s.load+'kg'}`,sx+64,yy);
-      ctx.fillStyle='rgba(232,229,220,.67)';
-      ctx.font='22px Oswald, sans-serif';
-      ctx.fillText(`× ${s.reps}`,sx+142,yy);
-    });
-
-    y += boxH + 12;
+    y+=EXO_H;
   });
+
   if((data.exercises||[]).length>maxItems){
-    ctx.fillStyle='rgba(232,229,220,.62)'; ctx.font='23px Oswald, sans-serif';
-    ctx.fillText(`+ ${(data.exercises.length-maxItems)} exercício(s) no treino completo`,104,y-2);
-    y += 34;
+    ctx.fillStyle='rgba(232,229,220,.38)';
+    ctx.font='28px Oswald, sans-serif';
+    ctx.fillText(`+ ${data.exercises.length-maxItems} exercício(s) no treino completo`, PAD, y+20);
+    y+=60;
   }
 
-  // frase final sempre depois do último exercício
-  const footerTop=y+44;
-  ctx.save(); ctx.translate(86,footerTop); ctx.rotate(-0.025); ctx.fillStyle='#c8c1b1';
-  ctx.beginPath(); ctx.moveTo(0,15); ctx.lineTo(872,0); ctx.lineTo(910,128); ctx.lineTo(28,150); ctx.closePath(); ctx.fill();
-  ctx.fillStyle='#111'; ctx.font='700 46px Oswald, sans-serif'; ctx.fillText('CONTINUA. AMANHÃ TEM MAIS.',42,64);
-  ctx.font='24px Special Elite, monospace'; ctx.fillText('disciplina > motivação',44,105); ctx.restore();
+  // rodapé
+  const footY=y+60;
+  ctx.fillStyle='rgba(255,255,255,.05)';
+  ctx.fillRect(PAD, footY, W-PAD*2, 1);
 
-  ctx.fillStyle='rgba(232,229,220,.46)'; ctx.font='24px Oswald, sans-serif'; ctx.fillText('GYMTRACK • DIÁRIO DE DISCIPLINA',70,Math.min(H-45, footerTop+185));
+  ctx.fillStyle='rgba(232,229,220,.18)';
+  ctx.font='26px Oswald, sans-serif';
+  ctx.fillText('GYMTRACK', PAD, footY+50);
+
+  // frase em itálico simulado (inclinação manual)
+  ctx.save();
+  ctx.translate(PAD+200, footY+54);
+  ctx.transform(1,0,-0.15,1,0,0);
+  ctx.fillStyle='rgba(232,229,220,.22)';
+  ctx.font='300 26px Oswald, sans-serif';
+  ctx.fillText('não é sorte. é processo.', 0, 0);
+  ctx.restore();
 }
 
 // ---- Formato quadrado 1:1 (1080×1080), versão resumida ----
