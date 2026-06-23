@@ -227,8 +227,8 @@ textarea{resize:vertical;min-height:46px}
   .stat-num{font-size:32px}
   .evo-row{grid-template-columns:1fr}
   .mobile-top{
-    display:flex;align-items:center;justify-content:center;gap:9px;
-    padding:16px;background:var(--bg-soft);border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;gap:9px;
+    padding:14px 16px;background:var(--bg-soft);border-bottom:1px solid var(--border);
     position:sticky;top:0;z-index:50;
   }
   .mobile-top .brand{margin:0;font-size:22px}
@@ -474,6 +474,7 @@ textarea{resize:vertical;min-height:46px}
 .rest-label{font-size:11px;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
 .rest-time{font-family:'Oswald';font-size:32px;font-weight:700;line-height:1}
 .rest-bar.done .rest-time{color:#22a05a}
+.set-rest{font-size:11.5px;color:var(--txt-faint);font-weight:500;white-space:nowrap}
 .rest-presets{display:flex;gap:6px}
 .rest-presets button{
   background:var(--card-hi);border:1px solid var(--border);color:var(--txt-dim);
@@ -697,7 +698,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 .star-row span.on{color:#d9d4c7!important;text-shadow:0 0 12px rgba(232,229,220,.20)!important}
 
 /* assinatura visual no dashboard */
-#view-dashboard .grid-stats:after{
+#view-dashboard .grid-a:after{
   content:"RESPIRO. CONFIO. ESPERO. ENTREGO. ACEITO. AGRADEÇO. CONTINUA.";
   grid-column:1/-1;display:block;padding:18px 24px;margin-top:2px;
   background:linear-gradient(180deg,#bdb7a9,#8e887c);color:#111;
@@ -811,6 +812,71 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
   .rpt-empty{color:#888!important;font-size:9.5pt;font-style:italic}
   .rpt-foot{margin-top:24px;padding-top:8px;border-top:1px solid #ccc;font-size:8pt;color:#888!important;text-align:center}
 }
+
+/* ---------- Dashboard cards estilo A (industrial/stencil) ---------- */
+.grid-a{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acard{
+  background:#0e0d0a;border:1px solid rgba(232,229,220,.1);border-left:4px solid var(--gold);
+  border-radius:0;padding:16px;position:relative;overflow:hidden;cursor:pointer;
+  transition:border-color .2s ease, transform .2s ease;
+}
+.acard:hover{border-left-color:var(--gold-lt);transform:translateY(-2px)}
+.acard:active{transform:translateY(0)}
+.acard-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--txt-faint)}
+.acard-num{font-family:'Oswald',sans-serif;font-weight:700;font-size:46px;line-height:.9;margin-top:8px;letter-spacing:.5px;color:#f3eee2}
+.acard-num-sm{font-size:30px;margin-top:12px;color:var(--gold-lt)}
+.acard-sub{font-size:11px;color:var(--txt-dim);margin-top:8px;text-transform:uppercase;letter-spacing:.5px}
+.acard-wide{grid-column:1 / -1}
+.acard-hot{border-left-color:#c0392b}
+.acard-hot:hover{border-left-color:#e8675b}
+.acard-hot .acard-num{color:#d6483b!important}
+@media(max-width:380px){.acard-num{font-size:38px}}
+
+.level-chip{
+  display:inline-flex;align-items:center;gap:9px;cursor:pointer;flex:0 0 auto;
+  background:transparent;border:0;padding:2px;transition:var(--trans);
+}
+.level-chip:hover{filter:brightness(1.1)}
+.level-chip:active{transform:scale(.96)}
+.level-chip .lc-num{
+  flex:0 0 auto;width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;position:relative;
+  background:conic-gradient(#e7c878 calc(var(--p,0)*1%), rgba(232,229,220,.14) 0);
+}
+.level-chip .lc-num::before{
+  content:'';position:absolute;inset:4px;border-radius:50%;background:#0c0c0b;
+}
+.level-chip .lc-num span{
+  position:relative;z-index:1;font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;color:#e7c878;
+}
+.level-chip .lc-title{
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;
+  color:#e7c878;text-transform:uppercase;white-space:nowrap;
+}
+/* versão na sidebar (desktop): abaixo da marca */
+.level-chip-side{display:none;margin:6px 0 14px}
+@media(min-width:861px){ .level-chip-side{display:inline-flex} }
+@media(max-width:360px){ .level-chip .lc-title{display:none} }
+
+/* ---------- Progresso / Nível (XP) ---------- */
+.xp-hero{display:flex;align-items:center;gap:22px}
+.xp-level-badge{flex:0 0 auto;width:108px;height:108px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 35%,#caa24a33,transparent 70%);border:2px solid #caa24a;box-shadow:0 0 24px rgba(202,162,74,.25)}
+.xp-lv-num{font-family:'Oswald',sans-serif;font-size:46px;font-weight:700;line-height:1;color:#e7c878}
+.xp-lv-word{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:3px;color:var(--txt-faint);margin-top:2px}
+.xp-hero-info{flex:1 1 auto;min-width:0}
+.xp-title{font-family:'Oswald',sans-serif;font-size:26px;letter-spacing:2px;color:#e7c878;margin-bottom:10px}
+.xp-bar{height:16px;border-radius:999px;background:rgba(232,229,220,.10);overflow:hidden;border:1px solid rgba(232,229,220,.14)}
+.xp-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#8a6d22,#caa24a,#e7c878);transition:width .8s cubic-bezier(.34,1.4,.64,1);box-shadow:0 0 12px rgba(202,162,74,.5)}
+.xp-bar-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--txt-dim);margin-top:6px}
+.xp-total{font-size:13px;color:var(--txt-faint);margin-top:4px}
+.xp-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border)}
+.xp-row:last-child{border-bottom:0}
+.xp-row .xp-row-l{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--txt)}
+.xp-row .xp-row-l .ic{font-size:18px;filter:grayscale(1)}
+.xp-row .xp-row-v{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;color:#e7c878}
+.xp-row .xp-row-v.zero{color:var(--txt-faint)}
+@media(max-width:860px){.xp-hero{gap:16px}.xp-level-badge{width:88px;height:88px}.xp-lv-num{font-size:38px}.xp-title{font-size:21px}}
 </style>
 </head>
 <body>
@@ -819,7 +885,9 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
   <!-- ============ SIDEBAR (desktop) ============ -->
   <aside class="sidebar">
     <div class="brand"><span class="logo">🏋️</span>Gym<b>Track</b></div>
+    <button class="level-chip level-chip-side" id="levelChipSide" onclick="go('progresso')"><span class="lc-num" id="lcNumSide"><span>1</span></span><span class="lc-title" id="lcTitleSide">INICIANTE</span></button>
     <div class="nav-item active" data-view="dashboard"><span class="ic">▦</span>Dashboard</div>
+    <div class="nav-item" data-view="progresso"><span class="ic">🔥</span>Progresso</div>
     <div class="nav-item" data-view="treino"><span class="ic">💪</span>Treino</div>
     <div class="nav-item" data-view="agua"><span class="ic">💧</span>Água</div>
     <div class="nav-item" data-view="refeicoes"><span class="ic">🍽️</span>Refeições</div>
@@ -838,7 +906,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 
   <!-- ============ MAIN ============ -->
   <div style="flex:1;min-width:0">
-    <div class="mobile-top"><div class="brand"><span class="logo">🏋️</span>Gym<b>Track</b></div></div>
+    <div class="mobile-top"><div class="brand"><span class="logo">🏋️</span>Gym<b>Track</b></div><button class="level-chip" id="levelChip" onclick="go('progresso')"><span class="lc-num" id="lcNum"><span>1</span></span><span class="lc-title" id="lcTitle">INICIANTE</span></button></div>
     <main class="main">
 
       <!-- ===== DASHBOARD ===== -->
@@ -860,67 +928,32 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
           <div class="progress" style="margin-top:14px;height:14px"><span id="dashOverallBar" style="width:0%"></span></div>
         </div>
 
-        <div class="grid grid-stats" style="margin-top:18px">
-          <div class="card stat-card"><span class="ic-bg">📋</span>
-            <div class="stat-label">Treino Planejado Hoje</div>
-            <div class="stat-num accent" id="dashPlan" style="font-size:26px;margin-top:12px">—</div>
-            <div class="stat-sub" id="dashPlanObs">Sem planejamento</div>
+        <div class="grid-a" style="margin-top:18px">
+          <div class="acard" onclick="go('treino')">
+            <div class="acard-lbl">Treino de Hoje</div>
+            <div class="acard-num acard-num-sm" id="dashPlan">—</div>
+            <div class="acard-sub" id="dashPlanObs">Sem planejamento</div>
           </div>
-          <div class="card stat-card"><span class="ic-bg">💧</span>
-            <div class="stat-label">Meta de Água</div>
-            <div class="stat-num" id="dashWater">0 <span style="font-size:16px;color:var(--txt-dim)">ml</span></div>
-            <div class="stat-sub" id="dashWaterGoal">meta: 0 ml</div>
+          <div class="acard" onclick="go('treino')">
+            <div class="acard-lbl">Exercícios Feitos</div>
+            <div class="acard-num" id="dashExos">0</div>
+            <div class="acard-sub" id="dashVolume">0 kg de volume</div>
+          </div>
+          <div class="acard" onclick="go('agua')">
+            <div class="acard-lbl">Água</div>
+            <div class="acard-num" id="dashWater">0 <span style="font-size:18px;color:var(--txt-dim)">ml</span></div>
+            <div class="acard-sub" id="dashWaterGoal">meta: 0 ml</div>
             <div class="progress" style="margin-top:10px"><span id="dashWaterBar" style="width:0%"></span></div>
           </div>
-          <div class="card stat-card"><span class="ic-bg">⚖️</span>
-            <div class="stat-label">Peso Atual</div>
-            <div class="stat-num" id="dashWeight">—</div>
-            <div class="stat-sub" id="dashWeightDiff">sem registro</div>
+          <div class="acard" onclick="go('refeicoes')">
+            <div class="acard-lbl">Refeições</div>
+            <div class="acard-num" id="dashMeals">0</div>
+            <div class="acard-sub">registradas hoje</div>
           </div>
-          <div class="card stat-card"><span class="ic-bg">📉</span>
-            <div class="stat-label">Última Evolução de Peso</div>
-            <div class="stat-num" id="dashWeightEvo" style="font-size:28px;margin-top:12px">—</div>
-            <div class="stat-sub" id="dashWeightEvoDate">—</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">🍽️</span>
-            <div class="stat-label">Refeições</div>
-            <div class="stat-num" id="dashMeals">0</div>
-            <div class="stat-sub">registradas hoje</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">💪</span>
-            <div class="stat-label">Exercícios Feitos</div>
-            <div class="stat-num" id="dashExos">0</div>
-            <div class="stat-sub" id="dashVolume">0 kg de volume</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">🔥</span>
-            <div class="stat-label">Dias Consecutivos</div>
-            <div class="stat-num accent" id="dashStreak">0</div>
-            <div class="stat-sub">dias seguidos treinando</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">📊</span>
-            <div class="stat-label">Volume Total da Semana</div>
-            <div class="stat-num" id="dashWeekVol" style="font-size:30px">0</div>
-            <div class="stat-sub">kg movimentados</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">🏆</span>
-            <div class="stat-label">Melhor Exercício da Semana</div>
-            <div class="stat-num accent" id="dashBestExo" style="font-size:22px;margin-top:12px">—</div>
-            <div class="stat-sub" id="dashBestExoVol">—</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">🗓️</span>
-            <div class="stat-label">Treinos na Semana</div>
-            <div class="stat-num accent" id="dashWeek">0/7</div>
-            <div class="progress" style="margin-top:12px"><span id="dashWeekBar" style="width:0%"></span></div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">⏱️</span>
-            <div class="stat-label">Duração do Último Treino</div>
-            <div class="stat-num" id="dashLastDur" style="font-size:30px">—</div>
-            <div class="stat-sub" id="dashLastDurDate">sem treino cronometrado</div>
-          </div>
-          <div class="card stat-card"><span class="ic-bg">🏋️</span>
-            <div class="stat-label">Último Treino Realizado</div>
-            <div class="stat-num accent" id="dashLastWorkout" style="font-size:22px;margin-top:12px">—</div>
-            <div class="stat-sub" id="dashLastWorkoutInfo">—</div>
+          <div class="acard acard-hot acard-wide" onclick="go('progresso')">
+            <div class="acard-lbl">Dias Consecutivos</div>
+            <div class="acard-num" id="dashStreak">0</div>
+            <div class="acard-sub">🔥 dias seguidos treinando</div>
           </div>
         </div>
 
@@ -930,6 +963,35 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
           <div id="dashPRList" style="margin-top:14px"></div>
         </div>
       </section>
+
+      <!-- ===== PROGRESSO / NÍVEL ===== -->
+      <section class="view" id="view-progresso">
+        <div class="page-head"><h1>Progresso</h1><div class="date">Seu nível, XP e evolução de disciplina</div></div>
+
+        <div class="card xp-hero">
+          <div class="xp-level-badge">
+            <div class="xp-lv-num" id="xpLevel">1</div>
+            <div class="xp-lv-word">NÍVEL</div>
+          </div>
+          <div class="xp-hero-info">
+            <div class="xp-title" id="xpTitle">INICIANTE</div>
+            <div class="xp-bar"><div class="xp-bar-fill" id="xpBarFill"></div></div>
+            <div class="xp-bar-meta"><span id="xpInto">0 / 0 XP</span><span id="xpToNext">faltam 0 XP</span></div>
+            <div class="xp-total" id="xpTotal">0 XP no total</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="card-title"><span class="ic">📊</span> De onde vem seu XP</div>
+          <div id="xpBreakdown" style="margin-top:12px"></div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div class="card-title"><span class="ic">💡</span> Como ganhar XP</div>
+          <div id="xpRules" style="margin-top:12px"></div>
+        </div>
+      </section>
+
       <section class="view" id="view-treino">
         <div class="page-head"><h1>Treino</h1><div class="date">Registre os exercícios de hoje</div></div>
 
@@ -978,6 +1040,16 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
                 <option>Ombros</option><option>Bíceps</option><option>Tríceps</option>
                 <option>Abdômen</option><option>Glúteos</option><option>Panturrilha</option>
                 <option>Cardio</option><option>Corpo Inteiro</option>
+              </select>
+            </div>
+            <div><label>Tipo de carga</label>
+              <select id="tLoadType">
+                <option value="barra">Barra</option>
+                <option value="halter_bi">Halter bilateral</option>
+                <option value="halter_uni">Halter unilateral</option>
+                <option value="maquina">Máquina</option>
+                <option value="cabo">Cabo</option>
+                <option value="corporal">Peso corporal</option>
               </select>
             </div>
             <div class="field-full">
@@ -1355,6 +1427,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 <!-- ============ MOBILE NAV ============ -->
 <nav class="mobile-nav">
   <div class="mnav-item active" data-view="dashboard"><span class="ic">▦</span><span>Início</span></div>
+  <div class="mnav-item" data-view="progresso"><span class="ic">🔥</span><span>Nível</span></div>
   <div class="mnav-item" data-view="treino"><span class="ic">💪</span><span>Treino</span></div>
   <div class="mnav-item" data-view="agua"><span class="ic">💧</span><span>Água</span></div>
   <div class="mnav-item" data-view="refeicoes"><span class="ic">🍽️</span><span>Refeições</span></div>
@@ -1391,17 +1464,10 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 <div class="rest-bar" id="restBar">
   <div class="rest-info">
     <div class="rest-label">Descanso</div>
-    <div class="rest-time" id="restTime">01:00</div>
-  </div>
-  <div class="rest-presets">
-    <button data-rest="60">60s</button>
-    <button data-rest="90">90s</button>
-    <button data-rest="120">120s</button>
-    <button data-rest="180">180s</button>
+    <div class="rest-time" id="restTime">00:00</div>
   </div>
   <div class="rest-actions">
-    <button class="btn btn-ghost btn-sm" id="restAdd30">+30s</button>
-    <button class="btn btn-sm" id="restSkip">Pular</button>
+    <button class="btn btn-sm" id="restSkip">Finalizar descanso</button>
   </div>
 </div>
 
@@ -1481,6 +1547,7 @@ const DOW = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 
 const MODULES = [
   {id:'dashboard', label:'Dashboard', icon:'▦', desc:'Resumo do dia'},
+  {id:'progresso', label:'Progresso', icon:'🔥', desc:'Nível e XP'},
   {id:'treino', label:'Treino', icon:'💪', desc:'Exercícios e séries'},
   {id:'agua', label:'Água', icon:'💧', desc:'Hidratação diária'},
   {id:'refeicoes', label:'Refeições', icon:'🍽️', desc:'Alimentação'},
@@ -1566,6 +1633,7 @@ function save(){
       try{ toast('⚠️ Não foi possível salvar neste modo. Abra por um link https para guardar seus dados.'); }catch(_){}
     }
   }
+  try{ updateLevelChip(); }catch(_){}
 }
 let state = loadState();
 
@@ -1629,6 +1697,7 @@ function go(view){
   window.scrollTo({top:0,behavior:'smooth'});
   // Atualiza dados ao entrar na aba
   if(view==='dashboard') renderDashboard();
+  if(view==='progresso') renderProgress();
   if(view==='agua') renderWater();
   if(view==='evolucao') renderEvolution();
   if(view==='biblioteca') renderLibrary();
@@ -1668,36 +1737,8 @@ function renderDashboard(){
   const vol = dayVolume(d);
   $('#dashVolume').textContent = `${vol.toLocaleString('pt-BR')} kg de volume`;
 
-  // Peso atual + diferença + última evolução
-  const w = [...state.weight].sort((a,b)=>a.date.localeCompare(b.date));
-  if(w.length){
-    const cur=w[w.length-1], first=w[0];
-    $('#dashWeight').innerHTML = `${cur.kg} <span style="font-size:16px;color:var(--txt-dim)">kg</span>`;
-    const diff=(cur.kg-first.kg);
-    $('#dashWeightDiff').textContent = `${diff>=0?'+':''}${diff.toFixed(1)} kg desde o início`;
-    if(w.length>=2){
-      const prev=w[w.length-2]; const ev=cur.kg-prev.kg;
-      $('#dashWeightEvo').innerHTML = `${ev>=0?'+':''}${ev.toFixed(1)} <span style="font-size:14px;color:var(--txt-dim)">kg</span>`;
-      $('#dashWeightEvoDate').textContent = `vs ${fmtDateBR(prev.date)}`;
-    }else{ $('#dashWeightEvo').textContent='—'; $('#dashWeightEvoDate').textContent='primeiro registro'; }
-  }else{
-    $('#dashWeight').textContent='—'; $('#dashWeightDiff').textContent='sem registro';
-    $('#dashWeightEvo').textContent='—'; $('#dashWeightEvoDate').textContent='—';
-  }
-
   // Streak (dias consecutivos treinando até hoje)
   $('#dashStreak').textContent = streakDays();
-
-  // Volume da semana + melhor exercício da semana
-  const wk = weekStats();
-  $('#dashWeekVol').textContent = wk.volume.toLocaleString('pt-BR');
-  $('#dashBestExo').textContent = wk.best? wk.best.name : '—';
-  $('#dashBestExoVol').textContent = wk.best? `${wk.best.vol.toLocaleString('pt-BR')} kg de volume` : '—';
-
-  // Treinos na semana
-  const trained = weekTrainedDays();
-  $('#dashWeek').textContent = `${trained}/7`;
-  $('#dashWeekBar').style.width = (trained/7*100)+'%';
 
   // Progresso geral do dia: média de água, treino feito e refeições (meta 3)
   const trainScore = Math.min(100, d.exos.length>0?100:0);
@@ -1706,18 +1747,6 @@ function renderDashboard(){
   $('#dashOverallPct').textContent = overall+'%';
   $('#dashOverallBar').style.width = overall+'%';
 
-  // Modo Treino: duração e último treino realizado
-  const ls=state.lastSession;
-  if(ls){
-    $('#dashLastDur').textContent=fmtDur(ls.duration);
-    $('#dashLastDurDate').textContent=`${fmtDateBR(ls.date)} · ${fmtHM(ls.start)}–${fmtHM(ls.end)}`;
-    const main = ls.exos && ls.exos.length? ls.exos.slice(0,2).join(', ')+(ls.exos.length>2?'…':'') : '—';
-    $('#dashLastWorkout').textContent=main;
-    $('#dashLastWorkoutInfo').textContent=`${ls.exoCount} exercícios · ${ls.setsDone}/${ls.setsTotal} séries · ${ls.volume.toLocaleString('pt-BR')}kg`;
-  }else{
-    $('#dashLastDur').textContent='—'; $('#dashLastDurDate').textContent='sem treino cronometrado';
-    $('#dashLastWorkout').textContent='—'; $('#dashLastWorkoutInfo').textContent='—';
-  }
   renderDashboardPRs();
 }
 
@@ -1750,7 +1779,43 @@ function exoSeries(e){
   for(let i=0;i<n;i++) out.push({load:e.load||0,reps:e.reps||0});
   return out;
 }
-function exoVolume(e){ return exoSeries(e).reduce((a,s)=>a+(s.load*s.reps||0),0); }
+
+// =====================================================
+//  TIPO DE CARGA — define exibição e cálculo de volume
+//  Compatibilidade: exercícios antigos sem loadType são
+//  tratados como 'barra' (multiplicador 1), ou seja, o
+//  comportamento idêntico ao de antes.
+// =====================================================
+const LOAD_TYPES = {
+  barra:      {label:'Barra',            mult:1, dual:false},
+  halter_bi:  {label:'Halter bilateral', mult:2, dual:true },
+  // unilateral: trabalha um lado por vez. Exibe o peso simples.
+  // Cálculo futuro previsto: volume = peso × reps × lados (quando
+  // houver registro de séries por lado). Por ora, mult=1.
+  halter_uni: {label:'Halter unilateral',mult:1, dual:false},
+  maquina:    {label:'Máquina',          mult:1, dual:false},
+  cabo:       {label:'Cabo',             mult:1, dual:false},
+  corporal:   {label:'Peso corporal',    mult:1, dual:false}
+};
+function exoLoadType(e){ return (e && LOAD_TYPES[e.loadType]) ? e.loadType : 'barra'; }
+// multiplicador de carga para cálculo de volume
+function loadMult(e){ return LOAD_TYPES[exoLoadType(e)].mult; }
+// formata UMA série para exibição respeitando o tipo (ex: "2×40kg")
+function fmtSerieLoad(e, load){
+  const t=LOAD_TYPES[exoLoadType(e)];
+  const v=(load==null?0:load);
+  return t.dual ? `2×${v}kg` : `${v}kg`;
+}
+// texto curto carga×reps de uma série (ex: "2×40kg × 4" ou "80kg × 6")
+function fmtSerie(e, s){ return `${fmtSerieLoad(e,s.load)} × ${s.reps}`; }
+// versão compacta sem espaços para listas (ex: "2×40×4" ou "80×4")
+function fmtSerieCompact(e, s){
+  const t=LOAD_TYPES[exoLoadType(e)];
+  return t.dual ? `2×${s.load}×${s.reps}` : `${s.load}×${s.reps}`;
+}
+
+// volume agora considera o multiplicador do tipo de carga
+function exoVolume(e){ const m=loadMult(e); return exoSeries(e).reduce((a,s)=>a+((s.load*m)*s.reps||0),0); }
 function exoTopSet(e){ const s=exoSeries(e); return s.length? Math.max(...s.map(x=>x.load||0)):0; }
 function exoTotalReps(e){ return exoSeries(e).reduce((a,s)=>a+(s.reps||0),0); }
 // média ponderada por repetições: Σ(carga×reps) / Σreps
@@ -1758,7 +1823,7 @@ function exoAvgLoad(e){ const tr=exoTotalReps(e); return tr? exoVolume(e)/tr:0; 
 function exoSetCount(e){ return exoSeries(e).length; }
 function exoDoneCount(e){ return exoSeries(e).filter(s=>s.done).length; }
 // volume considerando apenas séries concluídas (para a sessão ao vivo)
-function exoDoneVolume(e){ return exoSeries(e).filter(s=>s.done).reduce((a,s)=>a+(s.load*s.reps||0),0); }
+function exoDoneVolume(e){ const m=loadMult(e); return exoSeries(e).filter(s=>s.done).reduce((a,s)=>a+((s.load*m)*s.reps||0),0); }
 
 function dayVolume(d){ return d.exos.reduce((a,e)=>a+exoVolume(e),0); }
 
@@ -1810,10 +1875,11 @@ let draftSeries = [];   // séries sendo montadas no formulário
 function renderDraftSeries(){
   const box=$('#tSeries');
   if(!draftSeries.length){ box.innerHTML=''; return; }
+  const fakeExo={loadType:($('#tLoadType')?$('#tLoadType').value:'barra')};
   box.innerHTML = draftSeries.map((s,i)=>`
     <span class="serie-chip">
       <span class="n">${i+1}ª</span>
-      <b>${s.load}kg</b> × ${s.reps}
+      <b>${fmtSerieLoad(fakeExo,s.load)}</b> × ${s.reps}${s.rest?` <span class="set-rest">· ${fmtClock(s.rest*1000)}</span>`:''}
       <button type="button" class="rm" onclick="rmSerie(${i})">✕</button>
     </span>`).join('');
 }
@@ -1821,12 +1887,16 @@ function rmSerie(i){ draftSeries.splice(i,1); renderDraftSeries(); }
 function addSerie(){
   const load=+$('#tLoad').value||0, reps=+$('#tReps').value||0;
   if(!reps){ toast('Informe as repetições da série'); return; }
-  draftSeries.push({load,reps});
+  draftSeries.push({load,reps,done:true});
   renderDraftSeries();
   // mantém a carga (costuma repetir/subir) e limpa reps; foco volta pra reps
   $('#tReps').value=''; $('#tReps').focus();
+  // descanso começa ao registrar a série, se o treino estiver ativo.
+  // amarra o cronômetro à série recém-adicionada para gravar o tempo nela.
+  if(sessionActive()){ startRest(draftSeries[draftSeries.length-1]); }
 }
 $('#tAddSerie').addEventListener('click',addSerie);
+$('#tLoadType')?.addEventListener('change',renderDraftSeries);
 // Enter no campo de reps adiciona a série rapidamente
 $('#tReps').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); addSerie(); }});
 $('#tLoad').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#tReps').focus(); }});
@@ -1847,8 +1917,7 @@ function renderTreino(){
     const setRows = series.map((s,i)=>`
       <div class="set-row ${s.done?'done':''}">
         <span class="sn">${i+1}ª</span>
-        <span class="sl"><b>${s.load}kg</b> × ${s.reps} reps</span>
-        <button class="set-check ${s.done?'on':''}" onclick="toggleSet('${eid}',${i})" title="Marcar série concluída">✓</button>
+        <span class="sl"><b>${fmtSerieLoad(e,s.load)}</b> × ${s.reps} reps${s.rest?` <span class="set-rest">· descanso ${fmtClock(s.rest*1000)}</span>`:''}</span>
       </div>`).join('');
     return `
     <div class="exo-card ${total&&done===total?'done-all':''}">
@@ -1883,8 +1952,6 @@ function toggleSet(eid,i){
   const wasDone=e.series[i].done;
   e.series[i].done=!wasDone;
   save(); renderTreino();
-  // ao CONCLUIR uma série durante o treino, dispara o descanso
-  if(!wasDone && sessionActive()){ startRest(restDefault); }
 }
 $('#tAdd').addEventListener('click',()=>{
   const name=$('#tName').value.trim();
@@ -1895,6 +1962,7 @@ $('#tAdd').addEventListener('click',()=>{
   const obj={
     id: editExoId||uid(),
     group:$('#tGroup').value, name,
+    loadType:$('#tLoadType').value,
     series: draftSeries.slice(),
     obs:$('#tObs').value.trim()
   };
@@ -1913,7 +1981,8 @@ function editExo(id){
   const e=day().exos.find(x=>x.id===id); if(!e)return;
   editExoId=id;
   $('#tGroup').value=e.group; $('#tName').value=e.name; $('#tObs').value=e.obs||'';
-  draftSeries = exoSeries(e).map(s=>({load:s.load,reps:s.reps}));  // carrega séries (converte antigo)
+  $('#tLoadType').value=exoLoadType(e);
+  draftSeries = exoSeries(e).map(s=>({load:s.load,reps:s.reps,rest:s.rest,done:s.done!==false}));  // carrega séries (converte antigo)
   renderDraftSeries();
   $('#tLoad').value=''; $('#tReps').value='';
   $('#tAdd').innerHTML='<span>✓</span> Salvar Alterações'; $('#tCancel').style.display='inline-flex';
@@ -1926,6 +1995,7 @@ function delExo(id){
 function clearExoForm(){
   editExoId=null; draftSeries=[];
   ['#tName','#tLoad','#tReps','#tObs'].forEach(s=>$(s).value='');
+  if($('#tLoadType')) $('#tLoadType').value='barra';
   renderDraftSeries();
   $('#tSuggest').style.display='none';
   $('#tAdd').innerHTML='<span>＋</span> Adicionar Exercício'; $('#tCancel').style.display='none';
@@ -2017,28 +2087,25 @@ function resumeSession(){
 // =====================================================
 //  MODO TREINO — descanso entre séries
 // =====================================================
-let restDefault=90;          // preset padrão
-let restInt=null, restEnd=0;
-function startRest(secs){
-  restDefault=secs;
-  restEnd=Date.now()+secs*1000;
-  const bar=$('#restBar'); bar.classList.add('show'); bar.classList.remove('done');
+let restInt=null, restStart=0, restSerie=null;
+function startRest(serie=null){
+  restStart=Date.now();
+  restSerie=serie; // série à qual este descanso pertence (pode ser null)
+  const bar=$('#restBar'); bar.classList.add('show');
   tickRest();
   clearInterval(restInt); restInt=setInterval(tickRest,250);
 }
 function tickRest(){
-  const left=restEnd-Date.now();
-  if(left<=0){
-    $('#restTime').textContent='00:00';
-    $('#restBar').classList.add('done');
-    clearInterval(restInt); restInt=null;
-    if(navigator.vibrate) navigator.vibrate([200,100,200]);
-    beep();
-    return;
-  }
-  $('#restTime').textContent=fmtClock(left);
+  $('#restTime').textContent=fmtClock(Date.now()-restStart);
 }
 function stopRest(){
+  // grava o tempo de descanso na série correspondente (em segundos)
+  if(restSerie && restStart){
+    restSerie.rest = Math.round((Date.now()-restStart)/1000);
+    renderDraftSeries();
+    save(); renderTreino();
+  }
+  restSerie=null;
   clearInterval(restInt); restInt=null;
   $('#restBar').classList.remove('show','done');
 }
@@ -2055,8 +2122,6 @@ function beep(){
     o.start(); o.stop(ctx.currentTime+.5);
   }catch(e){}
 }
-$$('[data-rest]').forEach(b=>b.addEventListener('click',()=>startRest(+b.dataset.rest)));
-$('#restAdd30').addEventListener('click',()=>{ if(restEnd<Date.now())restEnd=Date.now(); restEnd+=30000; $('#restBar').classList.remove('done'); if(!restInt)restInt=setInterval(tickRest,250); tickRest(); });
 $('#restSkip').addEventListener('click',stopRest);
 
 // =====================================================
@@ -2076,7 +2141,8 @@ $('#btnRepeat').addEventListener('click',()=>{
   state.days[k].exos.forEach(src=>{
     d.exos.push({
       id:uid(), group:src.group, name:src.name,
-      series: exoSeries(src).map(s=>({load:s.load,reps:s.reps})), // séries zeradas de "done"
+      loadType: exoLoadType(src),
+      series: exoSeries(src).map(s=>({load:s.load,reps:s.reps,done:true})), // séries contam como feitas
       obs: src.obs||''
     });
   });
@@ -2234,7 +2300,7 @@ function renderEvoDay(){
   else{
     exoEl.innerHTML = r.exos.map(e=>{
       const series=exoSeries(e);
-      const setsTxt=series.map(s=>`${s.load}×${s.reps}`).join(', ');
+      const setsTxt=series.map(s=>fmtSerieCompact(e,s)).join(', ');
       return `<div class="exo-line"><span>${esc(e.name)} <small style="color:var(--txt-faint)">(${setsTxt})</small></span><b>${exoTopSet(e)}kg top</b></div>`;
     }).join('');
   }
@@ -2335,6 +2401,7 @@ function exoHistory(name){
         avg:exoAvgLoad(e),
         vol:exoVolume(e),
         nsets:series.length,
+        loadType:exoLoadType(e),
         series
       });
     });
@@ -2377,6 +2444,138 @@ function allRecords(){
   out.sort((a,b)=>b.rm.val-a.rm.val);
   return out;
 }
+
+// =====================================================
+//  SISTEMA DE XP E NÍVEIS (estilo Duolingo)
+//  O XP é SEMPRE calculado a partir dos dados já existentes
+//  (treinos, sono, água, refeições, PRs), nunca um contador
+//  solto — assim registros antigos já valem XP e nunca há
+//  risco de pontuar em dobro.
+// =====================================================
+const XP_RULES = { treino:50, serie:2, agua:20, sono:15, refeicao:5, pr:30, diaCumprido:25 };
+
+// Títulos/faixas por nível (combina com a estética dark/dourada)
+const XP_TITLES = [
+  {min:1,  nome:'INICIANTE'},
+  {min:4,  nome:'CONSTANTE'},
+  {min:8,  nome:'DEDICADO'},
+  {min:13, nome:'GUERREIRO'},
+  {min:19, nome:'VETERANO'},
+  {min:26, nome:'MESTRE'},
+  {min:34, nome:'LENDÁRIO'}
+];
+
+// XP total acumulado para CHEGAR ao início de um nível.
+// Curva crescente e suave: nível n exige base*(n-1)^1.35 acumulado.
+function xpForLevelStart(level){
+  if(level<=1) return 0;
+  let total=0;
+  for(let n=2;n<=level;n++){ total += Math.round(80 + 40*Math.pow(n-1,1.35)); }
+  return total;
+}
+// Dado um XP total, retorna {level, into, need, title}
+function levelFromXP(xp){
+  let level=1;
+  while(xpForLevelStart(level+1)<=xp && level<200) level++;
+  const start=xpForLevelStart(level);
+  const next=xpForLevelStart(level+1);
+  const into=xp-start, need=next-start;
+  let title=XP_TITLES[0].nome;
+  XP_TITLES.forEach(t=>{ if(level>=t.min) title=t.nome; });
+  return {level, into, need, title, pct: need? Math.min(100, into/need*100) : 100};
+}
+
+// "Dia cumprido" = treino + meta de água + sono no mesmo dia
+function isDiaCumprido(key){
+  const d=state.days[key];
+  const treinou = d && d.exos && d.exos.some(e=>exoDoneCount(e)>0 || exoSeries(e).length>0);
+  const goal=state.goalWater||0;
+  const aguaOk = d && goal>0 && (d.water||0)>=goal;
+  const dormiu = (state.sleep||[]).some(s=>s.date===key);
+  return !!(treinou && aguaOk && dormiu);
+}
+
+// Calcula o XP total e o detalhamento por fonte
+function computeXP(){
+  let treino=0, series=0, agua=0, sono=0, refeicao=0, pr=0, dias=0;
+  const goal=state.goalWater||0;
+  Object.keys(state.days).forEach(k=>{
+    const d=state.days[k];
+    // treino: conta se houver exercícios com séries
+    const exosComSerie = (d.exos||[]).filter(e=>exoSeries(e).length>0);
+    if(exosComSerie.length){ treino+=XP_RULES.treino; }
+    exosComSerie.forEach(e=>{ series += exoDoneCount(e)*XP_RULES.serie; });
+    // água: bateu a meta no dia
+    if(goal>0 && (d.water||0)>=goal) agua+=XP_RULES.agua;
+    // refeições
+    refeicao += (d.meals?d.meals.length:0)*XP_RULES.refeicao;
+    // dia cumprido
+    if(isDiaCumprido(k)) dias+=XP_RULES.diaCumprido;
+  });
+  // sono: cada noite registrada
+  sono += (state.sleep?state.sleep.length:0)*XP_RULES.sono;
+  // PRs: cada recorde de carga vale o bônus
+  pr += (allRecords().length)*XP_RULES.pr;
+
+  const breakdown=[
+    {label:'Treinos',         icon:'🏋️', xp:treino},
+    {label:'Séries concluídas',icon:'✅', xp:series},
+    {label:'Metas de água',   icon:'💧', xp:agua},
+    {label:'Noites de sono',  icon:'😴', xp:sono},
+    {label:'Refeições',       icon:'🍽️', xp:refeicao},
+    {label:'Recordes (PRs)',  icon:'🏆', xp:pr},
+    {label:'Dias cumpridos',  icon:'🔥', xp:dias}
+  ];
+  const total = breakdown.reduce((a,b)=>a+b.xp,0);
+  return {total, breakdown};
+}
+
+function updateLevelChip(){
+  const {total}=computeXP();
+  const lv=levelFromXP(total);
+  ['lcNum','lcNumSide'].forEach(id=>{
+    const el=$('#'+id); if(!el) return;
+    const inner=el.querySelector('span');
+    if(inner) inner.textContent=lv.level; else el.textContent=lv.level;
+    el.style.setProperty('--p', Math.round(lv.pct));
+  });
+  ['lcTitle','lcTitleSide'].forEach(id=>{ const el=$('#'+id); if(el) el.textContent=lv.title; });
+}
+
+function renderProgress(){
+  if(!$('#xpLevel')) return;
+  updateLevelChip();
+  const {total, breakdown}=computeXP();
+  const lv=levelFromXP(total);
+  $('#xpLevel').textContent=lv.level;
+  $('#xpTitle').textContent=lv.title;
+  $('#xpBarFill').style.width=lv.pct+'%';
+  $('#xpInto').textContent=`${lv.into} / ${lv.need} XP`;
+  $('#xpToNext').textContent = lv.need>lv.into ? `faltam ${lv.need-lv.into} XP` : 'nível máximo';
+  $('#xpTotal').textContent=`${total.toLocaleString('pt-BR')} XP no total`;
+
+  $('#xpBreakdown').innerHTML = breakdown.map(b=>`
+    <div class="xp-row">
+      <div class="xp-row-l"><span class="ic">${b.icon}</span>${b.label}</div>
+      <div class="xp-row-v ${b.xp?'':'zero'}">${b.xp? '+'+b.xp.toLocaleString('pt-BR'):'0'} XP</div>
+    </div>`).join('');
+
+  const rules=[
+    ['🏋️','Registrar um treino',`+${XP_RULES.treino}`],
+    ['✅','Cada série concluída',`+${XP_RULES.serie}`],
+    ['💧','Bater a meta de água do dia',`+${XP_RULES.agua}`],
+    ['😴','Registrar o sono',`+${XP_RULES.sono}`],
+    ['🍽️','Cada refeição registrada',`+${XP_RULES.refeicao}`],
+    ['🏆','Bater um recorde pessoal',`+${XP_RULES.pr}`],
+    ['🔥','Dia cumprido (treino + água + sono)',`+${XP_RULES.diaCumprido}`]
+  ];
+  $('#xpRules').innerHTML = rules.map(r=>`
+    <div class="xp-row">
+      <div class="xp-row-l"><span class="ic">${r[0]}</span>${r[1]}</div>
+      <div class="xp-row-v">${r[2]} XP</div>
+    </div>`).join('');
+}
+
 
 // Verifica se um exercício recém-salvo bateu algum recorde.
 // Compara contra TODO o histórico EXCETO o dia de hoje (evita
@@ -2451,7 +2650,7 @@ function openHist(name){
       </div>`).join('');
     // lista detalhada por dia: top, média e séries
     $('#histList').innerHTML=rows.slice().reverse().map(r=>{
-      const setsTxt=r.series.map(s=>`${s.load}×${s.reps}`).join(', ');
+      const setsTxt=r.series.map(s=>fmtSerieCompact({loadType:r.loadType},s)).join(', ');
       const trophy = r.date===recTopDate ? ' <span class="pr-tag">🏆 PR</span>' : '';
       return `<div class="exo-line" style="flex-wrap:wrap;gap:4px">
         <span>${fmtDateBR(r.date)}${trophy} <small style="color:var(--txt-faint)">— ${setsTxt}</small></span>
@@ -2882,7 +3081,7 @@ function calShow(key){
     const vol=dayVolume(r);
     $('#calDetailBody').innerHTML=`
       <div class="exo-line"><span>💪 Treino</span><b>${r.exos.length} exercício(s) · ${vol.toLocaleString('pt-BR')}kg</b></div>
-      ${r.exos.map(e=>`<div class="exo-line"><span style="padding-left:14px">${esc(e.name)} <small style="color:var(--txt-faint)">${exoSeries(e).map(s=>s.load+'×'+s.reps).join(', ')}</small></span><b>top ${exoTopSet(e)}kg</b></div>`).join('')}
+      ${r.exos.map(e=>`<div class="exo-line"><span style="padding-left:14px">${esc(e.name)} <small style="color:var(--txt-faint)">${exoSeries(e).map(s=>fmtSerieCompact(e,s)).join(', ')}</small></span><b>top ${exoTopSet(e)}kg</b></div>`).join('')}
       <div class="exo-line"><span>💧 Água</span><b>${r.water} ml</b></div>
       <div class="exo-line"><span>🍽️ Refeições</span><b>${r.meals.length}</b></div>`;
   }
@@ -2925,10 +3124,10 @@ function toCSV(rows){return rows.map(r=>r.map(csvCell).join(';')).join('\n');}
 function exportCSV(type){
   let rows=[],name='';
   if(type==='treinos'){
-    name='treinos';rows=[['Data','Grupo','Exercício','Série','Carga(kg)','Reps','Volume(kg)','TopSet(kg)','MédiaPond(kg)','Observação']];
+    name='treinos';rows=[['Data','Grupo','Exercício','Tipo de carga','Série','Carga(kg)','Reps','Volume(kg)','TopSet(kg)','MédiaPond(kg)','Observação']];
     Object.keys(state.days).sort().forEach(k=>state.days[k].exos.forEach(e=>{
-      const series=exoSeries(e), top=exoTopSet(e), avg=exoAvgLoad(e);
-      series.forEach((s,i)=>rows.push([fmtDateBR(k),e.group,e.name,i+1,s.load,s.reps,(s.load*s.reps),top,avg.toFixed(1),i===0?(e.obs||''):'']));
+      const series=exoSeries(e), top=exoTopSet(e), avg=exoAvgLoad(e), m=loadMult(e), tipo=LOAD_TYPES[exoLoadType(e)].label;
+      series.forEach((s,i)=>rows.push([fmtDateBR(k),e.group,e.name,tipo,i+1,s.load,s.reps,((s.load*m)*s.reps),top,avg.toFixed(1),i===0?(e.obs||''):'']));
     }));
   }else if(type==='refeicoes'){
     name='refeicoes';rows=[['Data','Tipo','Descrição','Calorias','Proteína(g)']];
@@ -2962,6 +3161,7 @@ function init(){
   applyModuleVisibility(); renderModuleSettings();
   renderDashboard(); renderTreino(); renderMeals(); renderPlan(); renderWater();
   resumeSession(); // retoma cronômetro se houver treino em andamento
+  updateLevelChip(); // mostra o nível no chip do topo
 }
 init();
 
@@ -3003,16 +3203,19 @@ function getStoryData(){
 
   // Relatório detalhado: exercício + cada série com carga e repetições.
   const exercises = exos.map(e=>{
+    const m=loadMult(e);
     const series = exoSeries(e).map((s,i)=>({
       n:i+1,
       load:Number(s.load||0),
       reps:Number(s.reps||0),
       done:!!s.done,
-      vol:Number((s.load||0)*(s.reps||0))
+      loadLabel:fmtSerieLoad(e, Number(s.load||0)),
+      vol:Number((s.load||0)*m*(s.reps||0))
     }));
     return {
       name:e.name||'Exercício',
       group:e.group||'',
+      loadType:exoLoadType(e),
       volume:series.reduce((a,s)=>a+s.vol,0),
       doneVolume:series.filter(s=>s.done).reduce((a,s)=>a+s.vol,0),
       sets:series.length,
@@ -3034,7 +3237,7 @@ function getStoryData(){
   };
 }
 function storySeriesLine(exercise){
-  return (exercise.series||[]).map(s=>`${s.done?'✓ ':''}${s.n}ª ${s.load}kg×${s.reps}`).join('  •  ');
+  return (exercise.series||[]).map(s=>`${s.done?'✓ ':''}${s.n}ª ${s.loadLabel||s.load+'kg'}×${s.reps}`).join('  •  ');
 }
 function storyWorkoutTitle(name){
   const raw=String(name||'TREINO DO DIA').trim();
@@ -3055,7 +3258,7 @@ function storyDrawSeries(ctx, exercise, x, y, maxWidth){
   series.forEach((s,idx)=>{
     const parts=[
       {t:`${s.done?'✓ ':''}${s.n}ª `, c:'rgba(232,229,220,.62)', f:'22px Oswald, sans-serif'},
-      {t:`${s.load}kg`, c:'#f3eee2', f:'700 25px Oswald, sans-serif'},
+      {t:`${s.loadLabel||s.load+'kg'}`, c:'#f3eee2', f:'700 25px Oswald, sans-serif'},
       {t:`×${s.reps}`, c:'rgba(232,229,220,.72)', f:'22px Oswald, sans-serif'},
       {t: idx<series.length-1?'  •  ':'', c:'rgba(232,229,220,.34)', f:'22px Oswald, sans-serif'}
     ];
@@ -3202,7 +3405,7 @@ function drawStoryReportStory(){
       ctx.fillText(`${s.done?'✓':'○'} ${s.n}ª`,sx,yy);
       ctx.fillStyle=s.done?'#f0ece0':'rgba(232,229,220,.55)';
       ctx.font='700 25px Oswald, sans-serif';
-      ctx.fillText(`${s.load}kg`,sx+64,yy);
+      ctx.fillText(`${s.loadLabel||s.load+'kg'}`,sx+64,yy);
       ctx.fillStyle='rgba(232,229,220,.67)';
       ctx.font='22px Oswald, sans-serif';
       ctx.fillText(`× ${s.reps}`,sx+142,yy);
