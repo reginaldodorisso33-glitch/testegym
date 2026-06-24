@@ -37,9 +37,9 @@ html,body{height:100%}
 body{
   font-family:'Inter',sans-serif;
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(225,29,42,.08), transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, rgba(225,29,42,.05), transparent 60%),
-    var(--bg);
+    linear-gradient(180deg, rgba(5,5,5,.72) 0%, rgba(5,5,5,.93) 45%, rgba(5,5,5,.99) 100%),
+    url('https://raw.githubusercontent.com/reginaldodorisso33-glitch/testegym/main/gymtrack_bg.jpg')
+    center top / cover no-repeat fixed;
   color:var(--txt);
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
@@ -465,29 +465,44 @@ textarea{resize:vertical;min-height:46px}
 .exo-card-actions{display:flex;gap:7px}
 
 /* Barra de descanso flutuante */
-.rest-bar{
-  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(220px);
-  z-index:90;background:rgba(20,20,23,.96);backdrop-filter:blur(16px);
-  border:1px solid var(--red);border-radius:18px;padding:14px 18px;
-  box-shadow:0 14px 40px rgba(0,0,0,.6);display:flex;align-items:center;gap:18px;flex-wrap:wrap;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:min(560px,92vw);
-  pointer-events:none;  /* não bloqueia toques quando escondida */
+/* ── Bolha flutuante de descanso ── */
+.rest-bubble{
+  position:fixed;right:16px;bottom:104px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  z-index:200;
+  opacity:0;transform:scale(.6) translateY(20px);pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
 }
-.rest-bar.show{transform:translateX(-50%) translateY(0);pointer-events:auto}
-.rest-bar.done{border-color:#22a05a;animation:restFlash 1s ease infinite}
-@keyframes restFlash{0%,100%{box-shadow:0 14px 40px rgba(0,0,0,.6)}50%{box-shadow:0 0 30px rgba(34,160,90,.7)}}
-.rest-info{text-align:center}
-.rest-label{font-size:11px;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
-.rest-time{font-family:'Oswald';font-size:32px;font-weight:700;line-height:1}
-.rest-bar.done .rest-time{color:#22a05a}
-.set-rest{font-size:11.5px;color:var(--txt-faint);font-weight:500;white-space:nowrap}
-.rest-presets{display:flex;gap:6px}
-.rest-presets button{
-  background:var(--card-hi);border:1px solid var(--border);color:var(--txt-dim);
-  padding:8px 12px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:var(--trans);font-family:inherit;
+.rest-bubble.show{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+.rb-ring-wrap{position:relative;width:80px;height:80px;cursor:pointer}
+.rb-svg{width:80px;height:80px;transform:rotate(-90deg)}
+.rb-track{fill:none;stroke:rgba(232,229,220,.1);stroke-width:6}
+.rb-fill{
+  fill:none;stroke-width:6;stroke-linecap:round;
+  stroke:url(#rbGrad);
+  stroke-dasharray:213.6;stroke-dashoffset:213.6;
+  transition:stroke-dashoffset .5s ease;
 }
-.rest-presets button:hover{border-color:var(--red);color:var(--txt)}
-.rest-actions{display:flex;gap:7px}
+.rb-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 35%,#1a1814,#080706);
+  border-radius:50%;margin:4px;
+}
+.rb-label{font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:2px;color:rgba(232,229,220,.35);text-transform:uppercase}
+.rb-time{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;color:#fff;line-height:1.1}
+.rb-btn{
+  font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;padding:6px 14px;
+  background:rgba(214,72,59,.18);border:1px solid rgba(214,72,59,.5);
+  color:#e8675b;cursor:pointer;white-space:nowrap;
+  transition:background .18s ease;
+}
+.rb-btn:hover,.rb-btn:active{background:rgba(214,72,59,.35)}
+/* SVG gradient definido inline */
+@media(max-width:860px){
+  .rest-bubble{right:14px;bottom:90px}
+}
 
 /* Sugestão de progressão */
 .suggestion{
@@ -507,10 +522,7 @@ textarea{resize:vertical;min-height:46px}
   .btn-lg{width:100%;justify-content:center}
   .session-live-info{width:100%}
   .session-live-info .mini-stat{flex:1}
-  .rest-bar{left:8px;right:8px;bottom:96px;transform:translateY(260px);max-width:none;justify-content:center;pointer-events:none}
-  .rest-bar.show{transform:translateY(0);pointer-events:auto}
   .set-check{width:36px;height:36px}
-  .rest-presets button{padding:11px 14px;font-size:14px}
 }
 
 
@@ -590,6 +602,29 @@ h1,h2,h3,h4,.brand,.stat-num,.card-title,.nav-item,.mnav-item,label,.btn,.data-t
 .sidebar-foot{font-family:'Oswald';letter-spacing:1.7px;color:#8f8a7e;border-top:1px dashed rgba(232,229,220,.16);padding-top:16px;line-height:1.7}
 
 .nav-item,.mnav-item{border-radius:8px;color:#8f8a7e;border:1px solid transparent}
+.nav-sep{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:var(--txt-faint);text-transform:uppercase;padding:14px 12px 4px;opacity:.6}
+.mais-modal{max-height:85vh;overflow-y:auto}
+.mais-cat{margin-bottom:22px}
+.mais-cat:last-child{margin-bottom:0}
+.mais-cat-title{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;color:var(--txt-faint);
+  margin-bottom:12px;
+}
+.mais-cat-line{flex:1;height:1px;background:rgba(232,229,220,.08)}
+.mais-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mais-item{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:16px 10px;background:rgba(0,0,0,.3);border:1px solid rgba(232,229,220,.08);
+  cursor:pointer;transition:background .18s, border-color .18s;
+}
+.mais-item:hover,.mais-item:active{background:rgba(232,229,220,.06);border-color:rgba(232,229,220,.16)}
+.mais-ic{font-size:24px}
+.mais-item span:last-child{
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--txt-dim);text-align:center;line-height:1.2;
+}
 .nav-item:hover,.mnav-item:hover{background:rgba(232,229,220,.06);color:#e8e5dc}
 .nav-item.active,.mnav-item.active{
   background:linear-gradient(90deg,rgba(232,229,220,.13),rgba(232,229,220,.035))!important;
@@ -666,6 +701,10 @@ h1,h2,h3,h4,.brand,.stat-num,.card-title,.nav-item,.mnav-item,label,.btn,.data-t
 .resumo-stats .rs-block.gold .rs-v{color:#e7c878}
 .resumo-stats .rs-l{font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--txt-faint);margin-top:4px}
 .resumo-prog{margin-top:18px}
+.resumo-habitos{margin-top:14px;padding:14px;background:rgba(0,0,0,.3);border:1px solid rgba(232,229,220,.08)}
+.rh-count{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:1.5px;color:#e8e5dc;text-transform:uppercase}
+.rh-count.perfect{color:#e7c878}
+.rh-status{font-family:'Oswald',sans-serif;font-size:12px;color:var(--txt-faint);margin-top:4px;letter-spacing:.5px}
 .resumo-prog-head{display:flex;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-dim);margin-bottom:8px}
 @media(max-width:380px){.resumo-pct{font-size:36px}.resumo-title{font-size:18px}.rr-v{font-size:15px}}
 
@@ -706,8 +745,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 .set-row{background:rgba(0,0,0,.38)!important;border-color:rgba(232,229,220,.12)!important}
 .set-row.done{background:rgba(212,208,195,.08)!important;border-color:rgba(212,208,195,.26)!important}
 .set-check.on{background:#d1ccbf!important;border-color:#d1ccbf!important;color:#050505!important}
-.rest-bar{background:rgba(7,7,7,.96)!important;border-color:rgba(232,229,220,.24)!important;border-radius:14px!important;backdrop-filter:blur(20px)}
-.rest-bar.done{border-color:#d9d4c7!important}
+/* rest bubble mantém o estilo base */
 
 /* calendário/estado */
 .cal-cell.green,.dot.green{background:rgba(212,208,195,.20)!important;border-color:rgba(212,208,195,.38)!important}.dot.green{background:#d9d4c7!important}
@@ -993,7 +1031,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,229,220,.46)!impor
 .food-calc, .food-drop, .food-opt, .story-wrap, .story-format-toggle .sfmt,
 .plan-day, .exo-prog, .exo-line, .set-row, .item, .empty, .cal-cell,
 .icon-btn, .btn, .btn-sm, .btn-ghost, .tag, .pr-tag, .level-chip,
-.streak-hero, .xp-hero, .modal, .search-drop, .search-opt, .rest-bar,
+.streak-hero, .xp-hero, .modal, .search-drop, .search-opt,
 input, select, textarea, .seg, .seg button, .data-table, .list .item,
 .suggest, .toast, .pr-banner, .sleep-advice, .badge2{
   border-radius:0 !important;
@@ -1006,7 +1044,7 @@ input, select, textarea, .seg, .seg button, .data-table, .list .item,
   border-radius:999px !important;
 }
 .sleep-score-ring, .xp-level-badge, .level-chip .lc-num,
-.dot, .session-dot{ border-radius:50% !important; }
+.dot, .session-dot, .rb-ring-wrap, .rb-inner{ border-radius:50% !important; }
 /* logo vira quadrado reto, combinando com o industrial */
 .brand .logo{ border-radius:0 !important; }
 
@@ -1063,18 +1101,19 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
     <div class="brand"><span class="logo">🏋️</span>Gym<b>Track</b></div>
     <button class="level-chip level-chip-side" id="levelChipSide" onclick="go('progresso')"><span class="lc-num" id="lcNumSide"><span>1</span></span><span class="lc-title" id="lcTitleSide">INICIANTE</span></button>
     <div class="nav-item active" data-view="dashboard"><span class="ic">▦</span>Dashboard</div>
-    <div class="nav-item" data-view="progresso"><span class="ic">🔥</span>Progresso</div>
     <div class="nav-item" data-view="treino"><span class="ic">💪</span>Treino</div>
     <div class="nav-item" data-view="agua"><span class="ic">💧</span>Água</div>
+    <div class="nav-item" data-view="sono"><span class="ic">😴</span>Sono</div>
     <div class="nav-item" data-view="refeicoes"><span class="ic">🍽️</span>Refeições</div>
+    <div class="nav-item" data-view="evolucao"><span class="ic">📈</span>Evolução</div>
+    <div class="nav-item" data-view="progresso"><span class="ic">🔥</span>Progresso</div>
+    <div class="nav-sep">MAIS</div>
     <div class="nav-item" data-view="planejamento"><span class="ic">📅</span>Planejamento</div>
-    <div class="nav-item" data-view="biblioteca"><span class="ic">📚</span>Biblioteca</div>
+    <div class="nav-item" data-view="calendario"><span class="ic">🗓️</span>Calendário</div>
+    <div class="nav-item" data-view="metas"><span class="ic">🎯</span>Metas</div>
     <div class="nav-item" data-view="peso"><span class="ic">⚖️</span>Peso</div>
     <div class="nav-item" data-view="medidas"><span class="ic">📏</span>Medidas</div>
-    <div class="nav-item" data-view="sono"><span class="ic">😴</span>Sono</div>
-    <div class="nav-item" data-view="metas"><span class="ic">🎯</span>Metas</div>
-    <div class="nav-item" data-view="calendario"><span class="ic">🗓️</span>Calendário</div>
-    <div class="nav-item" data-view="evolucao"><span class="ic">📈</span>Evolução</div>
+    <div class="nav-item" data-view="biblioteca"><span class="ic">📚</span>Biblioteca</div>
     <div class="nav-item" data-view="backup"><span class="ic">💾</span>Backup</div>
     <div class="nav-item" data-view="config"><span class="ic">⚙️</span>Configurações</div>
     <div class="sidebar-foot">NÃO É SORTE.<br>É PROCESSO. É DIÁRIO.</div>
@@ -1119,6 +1158,10 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
           <div class="resumo-stats">
             <div class="rs-block"><div class="rs-v" id="resStreak">0</div><div class="rs-l">🔥 Ofensiva</div></div>
             <div class="rs-block gold"><div class="rs-v" id="resXP">+0</div><div class="rs-l">⚡ XP hoje</div></div>
+          </div>
+          <div class="resumo-habitos" id="resHabitos">
+            <div class="rh-count" id="resHabitosCount">0/3 HÁBITOS</div>
+            <div class="rh-status" id="resHabitosStatus"></div>
           </div>
           <div class="resumo-prog">
             <div class="resumo-prog-head"><span>PROGRESSO DO DIA</span><span id="dashOverallSub">0% concluído</span></div>
@@ -1260,15 +1303,15 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
               </select>
             </div>
             <div class="field-full">
-              <label>Séries (carga × repetições)</label>
+              <label id="tLoadLabel">Carga total (kg)</label>
               <div id="tSeries"></div>
               <div class="series-add-row">
-                <input id="tLoad" type="number" min="0" step="0.5" placeholder="Carga (kg)">
+                <input id="tLoad" type="number" min="0" step="0.5" placeholder="Ex: 60">
                 <span class="series-x">×</span>
                 <input id="tReps" type="number" min="0" placeholder="Reps">
                 <button type="button" class="btn btn-ghost btn-sm" id="tAddSerie"><span>＋</span> Série</button>
               </div>
-              <p style="color:var(--txt-faint);font-size:11.5px;margin-top:7px" id="tSeriesHint">Adicione cada série. Dica: pressione Enter no campo de reps para adicionar rápido.</p>
+              <p style="color:var(--txt-faint);font-size:11.5px;margin-top:7px;line-height:1.6" id="tSeriesHint">🏋️ Barra: registre o peso TOTAL levantado, incluindo a barra.<br>Ex: barra olímpica (20kg) + 20kg em cada lado = 60kg total.</p>
             </div>
             <div class="field-full"><label>Observação</label><textarea id="tObs" placeholder="Opcional — sensação, técnica, etc."></textarea></div>
           </div>
@@ -1330,6 +1373,17 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
       <!-- ===== REFEIÇÕES ===== -->
       <section class="view" id="view-refeicoes">
         <div class="page-head"><h1>Refeições</h1><div class="date">Registre sua alimentação</div></div>
+
+        <div class="card" style="margin-bottom:18px">
+          <div class="card-title"><span class="ic">🎯</span>Meta de Refeições</div>
+          <div style="color:var(--txt-dim);font-size:13px;margin-bottom:12px">Quantas refeições você faz por dia? (atual: <b id="mealsGoalDisplay">3</b>)</div>
+          <div class="goal-row">
+            <input id="mealsGoal" type="number" min="1" max="10" step="1" placeholder="3" style="max-width:120px">
+            <button class="btn" id="mealsGoalSave">Salvar</button>
+          </div>
+          <p style="color:var(--txt-faint);font-size:12px;margin-top:12px;line-height:1.5">Dica: não existe número certo — use o que representa <em>sua</em> rotina. Pode ser 2, 3, 4 ou 6 refeições.</p>
+        </div>
+
         <div class="card">
           <div class="card-title"><span class="ic">＋</span>Nova Refeição</div>
           <div class="form-grid">
@@ -1649,21 +1703,51 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
 <!-- ============ MOBILE NAV ============ -->
 <nav class="mobile-nav">
   <div class="mnav-item active" data-view="dashboard"><span class="ic">▦</span><span>Início</span></div>
-  <div class="mnav-item" data-view="progresso"><span class="ic">🔥</span><span>Nível</span></div>
   <div class="mnav-item" data-view="treino"><span class="ic">💪</span><span>Treino</span></div>
   <div class="mnav-item" data-view="agua"><span class="ic">💧</span><span>Água</span></div>
-  <div class="mnav-item" data-view="refeicoes"><span class="ic">🍽️</span><span>Refeições</span></div>
-  <div class="mnav-item" data-view="planejamento"><span class="ic">📅</span><span>Plano</span></div>
-  <div class="mnav-item" data-view="biblioteca"><span class="ic">📚</span><span>Biblioteca</span></div>
-  <div class="mnav-item" data-view="peso"><span class="ic">⚖️</span><span>Peso</span></div>
-  <div class="mnav-item" data-view="medidas"><span class="ic">📏</span><span>Medidas</span></div>
   <div class="mnav-item" data-view="sono"><span class="ic">😴</span><span>Sono</span></div>
-  <div class="mnav-item" data-view="metas"><span class="ic">🎯</span><span>Metas</span></div>
-  <div class="mnav-item" data-view="calendario"><span class="ic">🗓️</span><span>Calendário</span></div>
+  <div class="mnav-item" data-view="refeicoes"><span class="ic">🍽️</span><span>Refeições</span></div>
   <div class="mnav-item" data-view="evolucao"><span class="ic">📈</span><span>Evolução</span></div>
-  <div class="mnav-item" data-view="backup"><span class="ic">💾</span><span>Backup</span></div>
-  <div class="mnav-item" data-view="config"><span class="ic">⚙️</span><span>Config</span></div>
+  <div class="mnav-item" id="mnavMais" onclick="openMais()"><span class="ic">⋯</span><span>Mais</span></div>
 </nav>
+
+<!-- Modal "Mais" -->
+<div class="modal-bg" id="maisModal" onclick="if(event.target===this)closeMais()">
+  <div class="modal mais-modal">
+    <div class="modal-head">
+      <h3>Mais módulos</h3>
+      <button class="icon-btn" onclick="closeMais()">✕</button>
+    </div>
+
+    <div class="mais-cat">
+      <div class="mais-cat-title"><span class="mais-cat-line"></span><span>Planejamento</span><span class="mais-cat-line"></span></div>
+      <div class="mais-grid">
+        <div class="mais-item" onclick="goMais('planejamento')"><span class="mais-ic">📅</span><span>Agenda</span></div>
+        <div class="mais-item" onclick="goMais('calendario')"><span class="mais-ic">🗓️</span><span>Calendário</span></div>
+        <div class="mais-item" onclick="goMais('metas')"><span class="mais-ic">🎯</span><span>Metas</span></div>
+      </div>
+    </div>
+
+    <div class="mais-cat">
+      <div class="mais-cat-title"><span class="mais-cat-line"></span><span>Corpo</span><span class="mais-cat-line"></span></div>
+      <div class="mais-grid">
+        <div class="mais-item" onclick="goMais('peso')"><span class="mais-ic">⚖️</span><span>Peso</span></div>
+        <div class="mais-item" onclick="goMais('medidas')"><span class="mais-ic">📏</span><span>Medidas</span></div>
+        <div class="mais-item" onclick="goMais('progresso')"><span class="mais-ic">🔥</span><span>Progresso</span></div>
+      </div>
+    </div>
+
+    <div class="mais-cat">
+      <div class="mais-cat-title"><span class="mais-cat-line"></span><span>Ferramentas</span><span class="mais-cat-line"></span></div>
+      <div class="mais-grid">
+        <div class="mais-item" onclick="goMais('biblioteca')"><span class="mais-ic">📚</span><span>Biblioteca</span></div>
+        <div class="mais-item" onclick="goMais('backup')"><span class="mais-ic">💾</span><span>Backup</span></div>
+        <div class="mais-item" onclick="goMais('config')"><span class="mais-ic">⚙️</span><span>Config</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <div class="modal-bg" id="histModal">
   <div class="modal">
@@ -1683,14 +1767,18 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
 </div>
 
 <!-- ===== MODO TREINO: barra de descanso flutuante ===== -->
-<div class="rest-bar" id="restBar">
-  <div class="rest-info">
-    <div class="rest-label">Descanso</div>
-    <div class="rest-time" id="restTime">00:00</div>
+<div class="rest-bubble" id="restBar">
+  <div class="rb-ring-wrap">
+    <svg class="rb-svg" viewBox="0 0 80 80">
+      <circle class="rb-track" cx="40" cy="40" r="34"/>
+      <circle class="rb-fill"  cx="40" cy="40" r="34" id="restRingFill"/>
+    </svg>
+    <div class="rb-inner">
+      <div class="rb-label">desc</div>
+      <div class="rb-time" id="restTime">00:00</div>
+    </div>
   </div>
-  <div class="rest-actions">
-    <button class="btn btn-sm" id="restSkip">Finalizar descanso</button>
-  </div>
+  <button class="rb-btn" id="restSkip">✓ Finalizar</button>
 </div>
 
 
@@ -1804,17 +1892,18 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 
 // ---------- Estado / persistência ----------
 // Estrutura:
-// { goalWater:Number, plan:{0..6:{group,obs}}, days:{ 'YYYY-MM-DD':{ exos:[], water:Number, meals:[] } } }
+// { goalWater:Number, goalMeals:Number, plan:{0..6:{group,obs}}, days:{ 'YYYY-MM-DD':{ exos:[], water:Number, meals:[] } } }
 function loadState(){
   let s = null;
   try{ s = JSON.parse(localStorage.getItem(KEY)); }catch(e){}
-  if(!s) s = { goalWater:2000, plan:{}, days:{} };
+  if(!s) s = { goalWater:2000, goalMeals:3, plan:{}, days:{} };
   return migrate(s);
 }
 // Migração automática: garante que dados antigos ganhem os novos campos
 // sem perder nada do que já existe.
 function migrate(s){
   if(typeof s.goalWater!=='number') s.goalWater = 2000;
+  if(typeof s.goalMeals!=='number') s.goalMeals = 3;  // padrão 3 refeições (configurável)
   if(!s.plan)  s.plan  = {};
   if(!s.days)  s.days  = {};
   if(!s.library) s.library = [];   // banco de exercícios (melhoria 1)
@@ -1915,7 +2004,12 @@ function renderModuleSettings(){
 function go(view){
   $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-'+view));
   $$('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.view===view));
-  $$('.mnav-item').forEach(n=>n.classList.toggle('active', n.dataset.view===view));
+  // na mobile, só marca o item ativo se for da nav principal
+  const mnavViews=['dashboard','treino','agua','sono','refeicoes','evolucao'];
+  $$('.mnav-item[data-view]').forEach(n=>n.classList.toggle('active', n.dataset.view===view));
+  // botão "Mais" fica ativo se a view atual for de um módulo secundário
+  const maisBtn=$('#mnavMais');
+  if(maisBtn) maisBtn.classList.toggle('active', !mnavViews.includes(view));
   window.scrollTo({top:0,behavior:'smooth'});
   // Atualiza dados ao entrar na aba
   if(view==='dashboard') renderDashboard();
@@ -1929,6 +2023,20 @@ function go(view){
   if(view==='metas') renderGoals();
   if(view==='calendario') renderCalendar();
   if(view==='config') renderModuleSettings();
+}
+
+// ── Modal "Mais" ──
+function openMais(){
+  $('#maisModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMais(){
+  $('#maisModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function goMais(view){
+  closeMais();
+  go(view);
 }
 $$('.nav-item,.mnav-item').forEach(n=>n.addEventListener('click',()=>go(n.dataset.view)));
 $$('[data-preset]').forEach(b=>b.addEventListener('click',()=>setActiveModules(MODULE_PRESETS[b.dataset.preset]||MODULE_PRESETS.essencial)));
@@ -2006,8 +2114,47 @@ function exoSeries(e){
   return out;
 }
 
-// =====================================================
-//  TIPO DE CARGA — define exibição e cálculo de volume
+// Textos de ajuda contextual por tipo de carga
+const LOAD_HINTS = {
+  barra: {
+    label: 'Carga total (kg)',
+    hint:  '🏋️ Barra: registre o peso TOTAL levantado, incluindo a barra.\nEx: barra olímpica (20kg) + 20kg em cada lado = 60kg total.',
+    placeholder: 'Ex: 60'
+  },
+  halter_bi: {
+    label: 'Peso de cada halter (kg)',
+    hint:  '🔵 Halter bilateral: registre o peso de CADA halter — o sistema dobra automaticamente.\nEx: 2 halteres de 32kg → registre 32 → exibe 2×32kg → volume = 64×reps.',
+    placeholder: 'Ex: 32'
+  },
+  halter_uni: {
+    label: 'Carga do lado trabalhado (kg)',
+    hint:  '🔴 Halter unilateral: registre apenas o peso do lado que está trabalhando.\nEx: rosca concentrada com 14kg → registre 14.',
+    placeholder: 'Ex: 14'
+  },
+  maquina: {
+    label: 'Carga da máquina (kg)',
+    hint:  '🖥️ Máquina: registre o peso indicado no pino ou visor da máquina.\nEx: cadeira extensora no pino 45kg → registre 45.',
+    placeholder: 'Ex: 45'
+  },
+  cabo: {
+    label: 'Carga da torre/pilha (kg)',
+    hint:  '🔗 Cabo: registre o peso indicado na pilha ou torre de cabos.\nEx: tríceps corda 35kg → registre 35.',
+    placeholder: 'Ex: 35'
+  },
+  corporal: {
+    label: 'Carga adicional (kg) — opcional',
+    hint:  '🤸 Peso corporal: registre 0 ou a carga extra adicionada (colete, barra etc.).\nEx: barra fixa simples → registre 0. Com colete de 10kg → registre 10.',
+    placeholder: 'Ex: 0'
+  }
+};
+
+function updateLoadHint(){
+  const type=$('#tLoadType')?.value||'barra';
+  const h=LOAD_HINTS[type]||LOAD_HINTS.barra;
+  const lbl=$('#tLoadLabel'); if(lbl) lbl.textContent=h.label;
+  const hint=$('#tSeriesHint'); if(hint){ hint.innerHTML=h.hint.replace(/\n/g,'<br>'); }
+  const input=$('#tLoad'); if(input){ input.placeholder=h.placeholder||'Carga (kg)'; }
+}
 //  Compatibilidade: exercícios antigos sem loadType são
 //  tratados como 'barra' (multiplicador 1), ou seja, o
 //  comportamento idêntico ao de antes.
@@ -2230,7 +2377,8 @@ function addSerie(){
   if(sessionActive()){ startRest(draftSeries[draftSeries.length-1]); }
 }
 $('#tAddSerie').addEventListener('click',addSerie);
-$('#tLoadType')?.addEventListener('change',renderDraftSeries);
+$('#tLoadType')?.addEventListener('change',()=>{ renderDraftSeries(); updateLoadHint(); });
+updateLoadHint(); // inicia com o hint correto
 // Enter no campo de reps adiciona a série rapidamente
 $('#tReps').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); addSerie(); }});
 $('#tLoad').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#tReps').focus(); }});
@@ -2316,6 +2464,7 @@ function editExo(id){
   editExoId=id;
   $('#tGroup').value=e.group; $('#tName').value=e.name; $('#tObs').value=e.obs||'';
   $('#tLoadType').value=exoLoadType(e);
+  updateLoadHint();
   draftSeries = exoSeries(e).map(s=>({load:s.load,reps:s.reps,rest:s.rest,done:s.done!==false}));  // carrega séries (converte antigo)
   renderDraftSeries();
   $('#tLoad').value=''; $('#tReps').value='';
@@ -2329,7 +2478,7 @@ function delExo(id){
 function clearExoForm(){
   editExoId=null; draftSeries=[];
   ['#tName','#tLoad','#tReps','#tObs'].forEach(s=>$(s).value='');
-  if($('#tLoadType')) $('#tLoadType').value='barra';
+  if($('#tLoadType')) { $('#tLoadType').value='barra'; updateLoadHint(); }
   renderDraftSeries();
   $('#tSuggest').style.display='none';
   $('#tAdd').innerHTML='<span>＋</span> Adicionar Exercício'; $('#tCancel').style.display='none';
@@ -2422,18 +2571,35 @@ function resumeSession(){
 //  MODO TREINO — descanso entre séries
 // =====================================================
 let restInt=null, restStart=0, restSerie=null;
+const RB_CIRC=213.6; // 2π×34 (raio do anel SVG)
+const RB_MAX=90;     // segundos para anel completar uma volta
+
 function startRest(serie=null){
   restStart=Date.now();
-  restSerie=serie; // série à qual este descanso pertence (pode ser null)
+  restSerie=serie;
   const bar=$('#restBar'); bar.classList.add('show');
+  // injeta o gradiente SVG na primeira vez
+  if(!document.getElementById('rbGrad')){
+    const svg=bar.querySelector('.rb-svg');
+    const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.innerHTML=`<linearGradient id="rbGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d6483b"/>
+      <stop offset="100%" stop-color="#e7c878"/>
+    </linearGradient>`;
+    svg.prepend(defs);
+  }
   tickRest();
   clearInterval(restInt); restInt=setInterval(tickRest,250);
 }
 function tickRest(){
-  $('#restTime').textContent=fmtClock(Date.now()-restStart);
+  const elapsed=(Date.now()-restStart)/1000;
+  $('#restTime').textContent=fmtClock(elapsed*1000);
+  // anel cresce de 0 até completar em RB_MAX segundos (depois continua cheio)
+  const pct=Math.min(1, elapsed/RB_MAX);
+  const fill=$('#restRingFill');
+  if(fill) fill.style.strokeDashoffset=RB_CIRC*(1-pct);
 }
 function stopRest(){
-  // grava o tempo de descanso na série correspondente (em segundos)
   if(restSerie && restStart){
     restSerie.rest = Math.round((Date.now()-restStart)/1000);
     renderDraftSeries();
@@ -2441,7 +2607,9 @@ function stopRest(){
   }
   restSerie=null;
   clearInterval(restInt); restInt=null;
-  $('#restBar').classList.remove('show','done');
+  const bar=$('#restBar'); bar.classList.remove('show','done');
+  // zera o anel
+  const fill=$('#restRingFill'); if(fill) fill.style.strokeDashoffset=RB_CIRC;
 }
 // bip curto via Web Audio (sem arquivos externos)
 function beep(){
@@ -2515,6 +2683,12 @@ $('#waterManual').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.prevent
 $('#waterGoalSave').addEventListener('click',()=>{
   state.goalWater = Math.max(0, +$('#waterGoal').value||0); save(); renderWater(); toast('Meta atualizada 🎯');
 });
+
+// Meta de refeições
+$('#mealsGoalSave').addEventListener('click',()=>{
+  const v=Math.max(1, Math.min(10, +$('#mealsGoal').value||3));
+  state.goalMeals=v; save(); renderMeals(); renderDashboard(); toast('Meta de refeições atualizada 🎯');
+});
 function renderWaterHist(){
   const keys=Object.keys(state.days).filter(k=>state.days[k].water>0).sort().reverse().slice(0,10);
   const el=$('#waterHist');
@@ -2537,6 +2711,11 @@ function renderWaterHist(){
 // =====================================================
 let editMealId=null;
 function renderMeals(){
+  // atualiza campo e display da meta
+  const goalM=state.goalMeals||3;
+  if($('#mealsGoal')) $('#mealsGoal').value=goalM;
+  if($('#mealsGoalDisplay')) $('#mealsGoalDisplay').textContent=goalM;
+
   const d=day(); const list=$('#mList');
   if(!d.meals.length){ list.innerHTML=`<div class="empty"><span class="ic">🍽️</span>Nenhuma refeição registrada hoje.</div>`; return; }
   list.innerHTML = d.meals.map(m=>`
@@ -2962,23 +3141,24 @@ function xpOfDay(key){
 // Preenche o card "Resumo do Dia" do dashboard
 function renderResumoDia(){
   if(!$('#resTreino')) return;
-  const key=todayKey(); const d=state.days[key]||{exos:[],water:0,meals:[]};
+  const key=todayKey();
+  const d=state.days[key]||{exos:[],water:0,meals:[]};
   const goal=state.goalWater||0;
+  const descanso=isDiaDescanso(key);
 
-  // helper para preencher valor + % + barra de um item
+  // helper: preenche valor + % + barra de um item
   const setItem=(prefix, valTxt, pct, full)=>{
     pct=Math.max(0,Math.min(100,Math.round(pct)));
     $('#res'+prefix).textContent=valTxt;
     $('#res'+prefix+'Pct').textContent=pct+'%';
     const bar=$('#res'+prefix+'Bar');
     bar.style.width=pct+'%';
-    bar.classList.toggle('full', full || pct>=100);
+    bar.classList.toggle('full', full||pct>=100);
   };
 
-  // Treino
+  // ── Treino ──
   const plan=(state.plan||[])[new Date().getDay()]||{};
   const treinou=(d.exos||[]).some(e=>exoSeries(e).length>0);
-  const descanso=isDiaDescanso(key);
   let treinoTxt;
   if(descanso) treinoTxt = treinou ? 'Descanso ✔' : 'Descanso 😴';
   else if(plan.group) treinoTxt = `${plan.group}${treinou?' ✔':''}`;
@@ -2986,37 +3166,55 @@ function renderResumoDia(){
   const treinoDone = treinou || descanso;
   setItem('Treino', treinoTxt, treinoDone?100:0, treinoDone);
 
-  // Água
+  // ── Água ──
   const water=d.water||0;
   const aguaTxt = goal? `${(water/1000).toFixed(1)}L / ${(goal/1000).toFixed(1)}L` : `${water} ml`;
   const aguaPct = goal? water/goal*100 : 0;
+  const aguaDone = goal>0 && water>=goal;
   setItem('Agua', aguaTxt, aguaPct);
 
-  // Dieta (meta 5 refeições)
-  const meals=(d.meals||[]).length, metaRef=5;
+  // ── Dieta (bônus de XP — aparece no card mas NÃO conta pra ofensiva/progresso) ──
+  const meals=(d.meals||[]).length, metaRef=state.goalMeals||3;
   setItem('Dieta', `${meals}/${metaRef} refeições`, meals/metaRef*100);
 
-  // Sono (da noite de hoje)
+  // ── Sono ──
   const slp=(state.sleep||[]).find(s=>s.date===key);
+  const dormiu=!!slp;
   if(slp){
     const sonoTxt=`${fmtSleep(slp.mins)} ${slp.quality?'⭐'.repeat(slp.quality):''}`.trim();
-    // % baseada na qualidade (1-5 estrelas) ou em 7h se sem estrela
-    const sonoPct = slp.quality? slp.quality*20 : Math.min(100, slp.mins/420*100);
+    const sonoPct=slp.quality? slp.quality*20 : Math.min(100, slp.mins/420*100);
     setItem('Sono', sonoTxt, sonoPct, slp.quality>=5);
-  } else {
-    setItem('Sono', '—', 0);
+  }else{
+    setItem('Sono','—',0);
   }
 
-  // Ofensiva + XP (blocos de destaque)
-  const of=computeOfensiva();
-  $('#resStreak').textContent = of.streak;
-  $('#resXP').textContent = `+${xpOfDay(key)}`;
+  // ── Hábitos do dia: apenas treino + água + sono (os 3 que definem a ofensiva) ──
+  const habitos=[
+    {nome:'Treino', ok: treinoDone},
+    {nome:'Água',   ok: aguaDone},
+    {nome:'Sono',   ok: dormiu},
+  ];
+  const habitosCumpridos=habitos.filter(h=>h.ok).length;
+  const perfeito=habitosCumpridos===3;
+  const faltando=habitos.filter(h=>!h.ok).map(h=>h.nome);
 
-  // Progresso geral do dia: média de água, treino e dieta
-  const wScore = goal? Math.min(100, water/goal*100) : 0;
+  const countEl=$('#resHabitosCount');
+  countEl.textContent = perfeito ? '3/3 HÁBITOS CONCLUÍDOS' : `${habitosCumpridos}/3 HÁBITOS CONCLUÍDOS`;
+  countEl.classList.toggle('perfect', perfeito);
+  $('#resHabitosStatus').textContent = perfeito
+    ? '🔥 DIA PERFEITO'
+    : `Falta: ${faltando.join(' · ')}`;
+
+  // ── Ofensiva + XP ──
+  const of=computeOfensiva();
+  $('#resStreak').textContent=of.streak;
+  $('#resXP').textContent=`+${xpOfDay(key)}`;
+
+  // ── Progresso geral: baseado apenas nos 3 hábitos da ofensiva ──
   const tScore = treinoDone ? 100 : 0;
-  const mScore = Math.min(100, meals/metaRef*100);
-  const overall = Math.round((wScore + tScore + mScore)/3);
+  const wScore = goal? Math.min(100, water/goal*100) : 0;
+  const sScore = dormiu ? 100 : 0;
+  const overall = Math.round((tScore + wScore + sScore) / 3);
   $('#dashOverallPct').textContent = overall+'%';
   $('#dashOverallBar').style.width = overall+'%';
   $('#dashOverallSub').textContent = overall+'% concluído';
@@ -3045,9 +3243,9 @@ function renderProgress(){
     flameEl.classList.toggle('cold', of.streak===0);
     let parts=[];
     const hojeDescanso=isDiaDescanso(todayKey());
-    if(of.hojeOk) parts.push('✅ hoje já conta');
-    else if(hojeDescanso) parts.push('😴 descanso — cumpra água + sono hoje');
-    else parts.push('⏳ cumpra treino + água + sono hoje');
+    if(of.hojeOk) parts.push('🔥 Hoje já conta para sua ofensiva');
+    else if(hojeDescanso) parts.push('😴 Dia de descanso — cumpra água + sono para manter a ofensiva');
+    else parts.push('⏳ Complete treino + água + sono para manter a ofensiva');
     parts.push(`recorde: <b>${of.best}</b> dias`);
     parts.push(of.freezesAvail>0 ? `❄️ protetores: <b>${of.freezesAvail}</b>` : 'sem protetor disponível');
     metaEl.innerHTML=parts.join(' · ');
