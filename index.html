@@ -1,3 +1,4 @@
+<!-- GymTrack - Gerado em: 25/06/2026 03:00 - VERSAO COMPLETA -->
 <!DOCTYPE html>
 <html lang="pt-BR" class="splashing">
 <head>
@@ -308,6 +309,30 @@ textarea{resize:vertical;min-height:46px}
 .series-add-row input{max-width:130px}
 .series-x{color:var(--txt-faint);font-weight:600;font-size:16px}
 .serie-chip{
+/* ── Dropset (Opção C — bloco por série com seção toggle) ── */
+.serie-block-c{border:1px solid rgba(232,229,220,.1);margin-bottom:8px;overflow:hidden}
+.serie-block-c.has-drops{border-color:rgba(214,72,59,.3)}
+.serie-head-c{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#0e0d0a;flex-wrap:nowrap}
+.sh-num{font-family:'Oswald',sans-serif;font-size:11px;color:var(--txt-faint);min-width:20px;flex-shrink:0}
+.sh-val{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#f0ece0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drop-toggle-c{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:4px 8px;background:none;border:1px solid rgba(232,229,220,.15);color:#666;cursor:pointer;flex-shrink:0;white-space:nowrap;transition:border-color .18s,color .18s}
+.drop-toggle-c.active{border-color:rgba(214,72,59,.4);color:#e8675b}
+.drop-toggle-c:hover{border-color:rgba(214,72,59,.35);color:#e8675b}
+.sh-del{background:none;border:none;color:#333;font-size:13px;cursor:pointer;padding:2px 4px;flex-shrink:0}
+.sh-del:hover{color:#888}
+.drops-section-c{background:#0a0908;border-top:1px solid rgba(214,72,59,.15);padding:10px 12px}
+.drops-list-c{margin-bottom:8px}
+.drop-line-c{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(232,229,220,.05)}
+.drop-line-c:last-child{border-bottom:0}
+.dl-arrow{color:#e8675b;font-size:12px;flex-shrink:0}
+.dl-val{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;color:#e8675b}
+.dl-reps{font-family:'Oswald',sans-serif;font-size:13px;color:#888;flex:1}
+.dl-del{background:none;border:none;color:#333;font-size:11px;cursor:pointer;padding:2px}
+.dl-del:hover{color:#888}
+.drop-add-c{display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px solid rgba(232,229,220,.06)}
+.drop-add-c input{flex:1;min-width:0;padding:7px 10px;font-size:13px}
+.drop-add-c .drop-x{color:var(--txt-faint);font-size:12px;flex-shrink:0}
+.drop-badge{display:inline-block;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;background:rgba(214,72,59,.2);border:1px solid rgba(214,72,59,.4);color:#e8675b;padding:1px 5px;margin-left:4px;vertical-align:middle}
   display:inline-flex;align-items:center;gap:9px;background:var(--bg);
   border:1px solid var(--border);border-radius:30px;padding:7px 8px 7px 14px;
   margin:0 8px 8px 0;font-size:13.5px;animation:fade .2s ease;
@@ -467,7 +492,7 @@ textarea{resize:vertical;min-height:46px}
 /* Barra de descanso flutuante */
 /* ── Bolha flutuante de descanso ── */
 .rest-bubble{
-  position:fixed;right:16px;bottom:104px;
+  position:fixed;right:16px;bottom:80px;
   display:flex;flex-direction:column;align-items:center;gap:8px;
   z-index:200;
   opacity:0;transform:scale(.6) translateY(20px);pointer-events:none;
@@ -487,18 +512,10 @@ textarea{resize:vertical;min-height:46px}
   position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   background:radial-gradient(circle at 35% 35%,#1a1814,#080706);
-  border-radius:50%;margin:4px;
+  border-radius:50%;margin:4px;cursor:pointer;
 }
 .rb-label{font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:2px;color:rgba(232,229,220,.35);text-transform:uppercase}
 .rb-time{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;color:#fff;line-height:1.1}
-.rb-btn{
-  font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;
-  text-transform:uppercase;padding:6px 14px;
-  background:rgba(214,72,59,.18);border:1px solid rgba(214,72,59,.5);
-  color:#e8675b;cursor:pointer;white-space:nowrap;
-  transition:background .18s ease;
-}
-.rb-btn:hover,.rb-btn:active{background:rgba(214,72,59,.35)}
 /* SVG gradient definido inline */
 @media(max-width:860px){
   .rest-bubble{right:14px;bottom:90px}
@@ -1768,7 +1785,7 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
 
 <!-- ===== MODO TREINO: barra de descanso flutuante ===== -->
 <div class="rest-bubble" id="restBar">
-  <div class="rb-ring-wrap">
+  <div class="rb-ring-wrap" onclick="stopRest()" title="Toque para finalizar o descanso">
     <svg class="rb-svg" viewBox="0 0 80 80">
       <circle class="rb-track" cx="40" cy="40" r="34"/>
       <circle class="rb-fill"  cx="40" cy="40" r="34" id="restRingFill"/>
@@ -1778,7 +1795,6 @@ input:focus,select:focus,textarea:focus{ border-color:#d6483b!important; box-sha
       <div class="rb-time" id="restTime">00:00</div>
     </div>
   </div>
-  <button class="rb-btn" id="restSkip">✓ Finalizar</button>
 </div>
 
 
@@ -2238,8 +2254,14 @@ function fmtSerieCompact(e, s){
   return t.dual ? `2×${s.load}×${s.reps}` : `${s.load}×${s.reps}`;
 }
 
-// volume agora considera o multiplicador do tipo de carga
-function exoVolume(e){ const m=loadMult(e); return exoSeries(e).reduce((a,s)=>a+((s.load*m)*s.reps||0),0); }
+// volume agora considera o multiplicador do tipo de carga + drops do dropset
+function serieVolume(e, s){
+  const m=loadMult(e);
+  let v=(s.load*m)*(s.reps)||0;
+  if(s.drops) s.drops.forEach(d=>{ v+=(d.load*m)*(d.reps)||0; });
+  return v;
+}
+function exoVolume(e){ return exoSeries(e).reduce((a,s)=>a+serieVolume(e,s),0); }
 function exoTopSet(e){ const s=exoSeries(e); return s.length? Math.max(...s.map(x=>x.load||0)):0; }
 function exoTotalReps(e){ return exoSeries(e).reduce((a,s)=>a+(s.reps||0),0); }
 // média ponderada por repetições: Σ(carga×reps) / Σreps
@@ -2247,7 +2269,7 @@ function exoAvgLoad(e){ const tr=exoTotalReps(e); return tr? exoVolume(e)/tr:0; 
 function exoSetCount(e){ return exoSeries(e).length; }
 function exoDoneCount(e){ return exoSeries(e).filter(s=>s.done).length; }
 // volume considerando apenas séries concluídas (para a sessão ao vivo)
-function exoDoneVolume(e){ const m=loadMult(e); return exoSeries(e).filter(s=>s.done).reduce((a,s)=>a+((s.load*m)*s.reps||0),0); }
+function exoDoneVolume(e){ return exoSeries(e).filter(s=>s.done).reduce((a,s)=>a+serieVolume(e,s),0); }
 
 function dayVolume(d){ return d.exos.reduce((a,e)=>a+exoVolume(e),0); }
 
@@ -2357,14 +2379,66 @@ function renderDraftSeries(){
   const box=$('#tSeries');
   if(!draftSeries.length){ box.innerHTML=''; return; }
   const fakeExo={loadType:($('#tLoadType')?$('#tLoadType').value:'barra')};
-  box.innerHTML = draftSeries.map((s,i)=>`
-    <span class="serie-chip">
-      <span class="n">${i+1}ª</span>
-      <b>${fmtSerieLoad(fakeExo,s.load)}</b> × ${s.reps}${s.rest?` <span class="set-rest">· ${fmtClock(s.rest*1000)}</span>`:''}
-      <button type="button" class="rm" onclick="rmSerie(${i})">✕</button>
-    </span>`).join('');
+  box.innerHTML = draftSeries.map((s,i)=>{
+    const drops=s.drops||[];
+    const hasDrops=drops.length>0;
+    const dropLabel=hasDrops?`↘ DROPS (${drops.length})`:'↘ DROPS';
+    const dropLines=drops.map((d,di)=>`
+      <div class="drop-line-c">
+        <span class="dl-arrow">→</span>
+        <span class="dl-val">${fmtSerieLoad(fakeExo,d.load)}</span>
+        <span class="dl-reps">× ${d.reps}</span>
+        <button type="button" class="dl-del" onclick="rmDrop(${i},${di})">✕</button>
+      </div>`).join('');
+    return `
+    <div class="serie-block-c ${hasDrops?'has-drops':''}">
+      <div class="serie-head-c">
+        <span class="sh-num">${i+1}ª</span>
+        <span class="sh-val">${fmtSerieLoad(fakeExo,s.load)} × ${s.reps}${s.rest?` <span class="set-rest">· ${fmtClock(s.rest*1000)}</span>`:''}</span>
+        <button type="button" class="drop-toggle-c ${hasDrops?'active':''}" onclick="toggleDropC(${i})">${dropLabel}</button>
+        <button type="button" class="sh-del" onclick="rmSerie(${i})">✕</button>
+      </div>
+      <div class="drops-section-c" id="dropsC${i}" style="display:${hasDrops?'block':'none'}">
+        <div class="drops-list-c">${dropLines}</div>
+        <div class="drop-add-c">
+          <input id="dcLoad${i}" type="number" min="0" step="0.5" placeholder="Carga">
+          <span class="drop-x">×</span>
+          <input id="dcReps${i}" type="number" min="0" placeholder="Reps">
+          <button type="button" class="btn btn-red btn-sm" onclick="addDropC(${i})">＋ Queda</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 function rmSerie(i){ draftSeries.splice(i,1); renderDraftSeries(); }
+
+// ── Dropset (Opção C) ──
+function toggleDropC(i){
+  const sec=$(`#dropsC${i}`); if(!sec) return;
+  const open=sec.style.display==='none';
+  sec.style.display=open?'block':'none';
+  if(open){ const l=$(`#dcLoad${i}`); if(l) l.focus(); }
+}
+function addDropC(i){
+  const load=+$(`#dcLoad${i}`)?.value||0;
+  const reps=+$(`#dcReps${i}`)?.value||0;
+  if(!reps){ toast('Informe as repetições da queda'); return; }
+  if(!draftSeries[i].drops) draftSeries[i].drops=[];
+  draftSeries[i].drops.push({load,reps,done:true});
+  renderDraftSeries();
+  // reabre a seção e foca no campo de carga para a próxima queda
+  const sec=$(`#dropsC${i}`); if(sec) sec.style.display='block';
+  const l=$(`#dcLoad${i}`); if(l){ l.value=''; l.focus(); }
+  const r=$(`#dcReps${i}`); if(r) r.value='';
+}
+function rmDrop(i,di){
+  if(draftSeries[i]?.drops) draftSeries[i].drops.splice(di,1);
+  renderDraftSeries();
+  // mantém a seção aberta se ainda tiver drops
+  if((draftSeries[i]?.drops||[]).length){
+    const sec=$(`#dropsC${i}`); if(sec) sec.style.display='block';
+  }
+}
 function addSerie(){
   const load=+$('#tLoad').value||0, reps=+$('#tReps').value||0;
   if(!reps){ toast('Informe as repetições da série'); return; }
@@ -2382,6 +2456,8 @@ updateLoadHint(); // inicia com o hint correto
 // Enter no campo de reps adiciona a série rapidamente
 $('#tReps').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); addSerie(); }});
 $('#tLoad').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#tReps').focus(); }});
+// Ao começar a digitar o peso da próxima série → fecha o descanso automaticamente
+$('#tLoad').addEventListener('input',()=>{ if(restInt) stopRest(); });
 
 function renderTreino(){
   const d=day(); const list=$('#tList');
@@ -2396,11 +2472,14 @@ function renderTreino(){
     const rec=exoRecords(e.name);
     const isPR = rec && top>0 && top>=rec.top.val && rec.top.date===todayKey();
     const prBadge = isPR ? ` <span class="pr-tag" title="Recorde pessoal de carga!">🏆 PR</span>` : '';
-    const setRows = series.map((s,i)=>`
-      <div class="set-row ${s.done?'done':''}">
+    const setRows = series.map((s,i)=>{
+      const drops=(s.drops||[]);
+      const dropChain = drops.map(d=>`<span class="dl-arrow">→</span><span class="dl-val" style="font-size:13px">${fmtSerieLoad(e,d.load)}</span><span class="dl-reps" style="font-size:12px">×${d.reps}</span>`).join(' ');
+      return `<div class="set-row ${s.done?'done':''}">
         <span class="sn">${i+1}ª</span>
-        <span class="sl"><b>${fmtSerieLoad(e,s.load)}</b> × ${s.reps} reps${s.rest?` <span class="set-rest">· descanso ${fmtClock(s.rest*1000)}</span>`:''}</span>
-      </div>`).join('');
+        <span class="sl"><b>${fmtSerieLoad(e,s.load)}</b> × ${s.reps} reps${drops.length?` ${dropChain}`:''}${s.rest?` <span class="set-rest">· descanso ${fmtClock(s.rest*1000)}</span>`:''}</span>
+      </div>`;
+    }).join('');
     return `
     <div class="exo-card ${total&&done===total?'done-all':''}">
       <div class="exo-card-head">
@@ -2465,7 +2544,7 @@ function editExo(id){
   $('#tGroup').value=e.group; $('#tName').value=e.name; $('#tObs').value=e.obs||'';
   $('#tLoadType').value=exoLoadType(e);
   updateLoadHint();
-  draftSeries = exoSeries(e).map(s=>({load:s.load,reps:s.reps,rest:s.rest,done:s.done!==false}));  // carrega séries (converte antigo)
+  draftSeries = exoSeries(e).map(s=>({load:s.load,reps:s.reps,rest:s.rest,done:s.done!==false,drops:s.drops?[...s.drops]:[]}));
   renderDraftSeries();
   $('#tLoad').value=''; $('#tReps').value='';
   $('#tAdd').innerHTML='<span>✓</span> Salvar Alterações'; $('#tCancel').style.display='inline-flex';
@@ -2624,7 +2703,10 @@ function beep(){
     o.start(); o.stop(ctx.currentTime+.5);
   }catch(e){}
 }
-$('#restSkip').addEventListener('click',stopRest);
+// bolha de descanso — toque na bolha para finalizar manualmente
+document.getElementById('restBar')?.addEventListener('click', e=>{
+  if(e.target.closest('.rb-ring-wrap')) stopRest();
+});
 
 // =====================================================
 //  MODO TREINO — repetir último treino
@@ -3979,14 +4061,17 @@ function getStoryData(){
       reps:Number(s.reps||0),
       done:!!s.done,
       loadLabel:fmtSerieLoad(e, Number(s.load||0)),
-      vol:Number((s.load||0)*m*(s.reps||0))
+      vol:serieVolume(e,s)
     }));
+    const realTop = exoTopSet(e); // usa a função já testada — pega o máximo real
     return {
       name:e.name||'Exercício',
       group:e.group||'',
       loadType:exoLoadType(e),
-      volume:series.reduce((a,s)=>a+s.vol,0),
-      doneVolume:series.filter(s=>s.done).reduce((a,s)=>a+s.vol,0),
+      topLoad: fmtSerieLoad(e, realTop), // label correto do top (ex: "170kg" ou "2×32kg")
+      topKg: realTop,
+      volume:exoVolume(e),
+      doneVolume:exoDoneVolume(e),
       sets:series.length,
       doneSets:series.filter(s=>s.done).length,
       series
@@ -4062,7 +4147,7 @@ function drawStoryReportStory(){
 
   // altura dinâmica baseada nos exercícios
   const EXO_START=820;
-  const EXO_H=210; // altura por exercício
+  const EXO_H=160; // altura por exercício (sem a linha de top set)
   const totalExoH=list.length*EXO_H + (list.length>1?(list.length-1)*20:0);
   const H=Math.max(1920, EXO_START+totalExoH+220);
 
@@ -4133,17 +4218,10 @@ function drawStoryReportStory(){
     ctx.font='700 38px Oswald, sans-serif';
     storyText(ctx, String(e.name||'EXERCÍCIO').toUpperCase(), PAD, y, W-PAD*2, 40);
 
-    // top set em vermelho
-    const topLoad = e.series&&e.series.length? e.series[0].loadLabel||e.series[0].load+'kg' : '—';
-    ctx.fillStyle='#d6483b';
-    ctx.font='28px Oswald, sans-serif';
-    ctx.fillText(`top ${topLoad}  ·  ${e.doneSets||e.sets} séries`, PAD, y+50);
-
     // séries compactas numa linha (carga × reps)
-    const seriesTxt=(e.series||[]).map(s=>`${s.loadLabel||s.load+'kg'}×${s.reps}`).join('  ·  ');
     ctx.fillStyle='rgba(232,229,220,.38)';
     ctx.font='26px Oswald, sans-serif';
-    storyText(ctx, seriesTxt, PAD, y+90, W-PAD*2, 30);
+    storyText(ctx, seriesTxt, PAD, y+50, W-PAD*2, 30);
 
     // divisor entre exercícios
     if(i<list.length-1){
