@@ -309,30 +309,20 @@ textarea{resize:vertical;min-height:46px}
 .series-add-row input{max-width:130px}
 .series-x{color:var(--txt-faint);font-weight:600;font-size:16px}
 .serie-chip{
-/* ── Dropset (Opção C — bloco por série com seção toggle) ── */
-.serie-block-c{border:1px solid rgba(232,229,220,.1);margin-bottom:8px;overflow:hidden}
-.serie-block-c.has-drops{border-color:rgba(214,72,59,.3)}
-.serie-head-c{display:flex;align-items:center;gap:8px;padding:11px 12px;background:#0e0d0a;flex-wrap:nowrap}
-.sh-num{font-family:'Oswald',sans-serif;font-size:11px;color:var(--txt-faint);min-width:20px;flex-shrink:0}
-.sh-val{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#f0ece0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.drop-toggle-c{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:4px 8px;background:none;border:1px solid rgba(232,229,220,.15);color:#666;cursor:pointer;flex-shrink:0;white-space:nowrap;transition:border-color .18s,color .18s}
-.drop-toggle-c.active{border-color:rgba(214,72,59,.4);color:#e8675b}
-.drop-toggle-c:hover{border-color:rgba(214,72,59,.35);color:#e8675b}
-.sh-del{background:none;border:none;color:#333;font-size:13px;cursor:pointer;padding:2px 4px;flex-shrink:0}
-.sh-del:hover{color:#888}
-.drops-section-c{background:#0a0908;border-top:1px solid rgba(214,72,59,.15);padding:10px 12px}
-.drops-list-c{margin-bottom:8px}
-.drop-line-c{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(232,229,220,.05)}
-.drop-line-c:last-child{border-bottom:0}
-.dl-arrow{color:#e8675b;font-size:12px;flex-shrink:0}
-.dl-val{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;color:#e8675b}
-.dl-reps{font-family:'Oswald',sans-serif;font-size:13px;color:#888;flex:1}
-.dl-del{background:none;border:none;color:#333;font-size:11px;cursor:pointer;padding:2px}
-.dl-del:hover{color:#888}
-.drop-add-c{display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px solid rgba(232,229,220,.06)}
-.drop-add-c input{flex:1;min-width:0;padding:7px 10px;font-size:13px}
-.drop-add-c .drop-x{color:var(--txt-faint);font-size:12px;flex-shrink:0}
-.drop-badge{display:inline-block;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;background:rgba(214,72,59,.2);border:1px solid rgba(214,72,59,.4);color:#e8675b;padding:1px 5px;margin-left:4px;vertical-align:middle}
+/* ── Dropset simplificado ── */
+.drop-chip-wrap{margin-bottom:8px}
+.serie-chip2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#0e0d0a;border:1px solid rgba(232,229,220,.12);padding:10px 12px}
+.sc-num{font-family:'Oswald',sans-serif;font-size:11px;color:var(--txt-faint);flex-shrink:0}
+.sc-val{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#f0ece0;flex:1}
+.drop-tag{display:inline-flex;align-items:center;gap:4px;font-family:'Oswald',sans-serif;font-size:12px;color:#e8675b;background:rgba(214,72,59,.1);border:1px solid rgba(214,72,59,.25);padding:2px 7px}
+.drop-tag button{background:none;border:none;color:#e8675b;font-size:10px;cursor:pointer;padding:0;line-height:1}
+.sc-drop{background:none;border:1px solid rgba(214,72,59,.3);color:#e8675b;font-size:12px;padding:3px 7px;cursor:pointer;font-family:'Oswald',sans-serif;flex-shrink:0}
+.sc-drop:hover{background:rgba(214,72,59,.15)}
+.sc-del{background:none;border:none;color:#333;font-size:13px;cursor:pointer;padding:2px;flex-shrink:0}
+.sc-del:hover{color:#888}
+.drop-inline-form{display:flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(214,72,59,.05);border:1px solid rgba(214,72,59,.15);border-top:0;flex-wrap:wrap}
+.dl-arrow{color:#e8675b;font-size:13px;flex-shrink:0}
+.drop-x{color:var(--txt-faint);font-size:12px}
   display:inline-flex;align-items:center;gap:9px;background:var(--bg);
   border:1px solid var(--border);border-radius:30px;padding:7px 8px 7px 14px;
   margin:0 8px 8px 0;font-size:13.5px;animation:fade .2s ease;
@@ -2381,63 +2371,54 @@ function renderDraftSeries(){
   const fakeExo={loadType:($('#tLoadType')?$('#tLoadType').value:'barra')};
   box.innerHTML = draftSeries.map((s,i)=>{
     const drops=s.drops||[];
-    const hasDrops=drops.length>0;
-    const dropLabel=hasDrops?`↘ DROPS (${drops.length})`:'↘ DROPS';
-    const dropLines=drops.map((d,di)=>`
-      <div class="drop-line-c">
-        <span class="dl-arrow">→</span>
-        <span class="dl-val">${fmtSerieLoad(fakeExo,d.load)}</span>
-        <span class="dl-reps">× ${d.reps}</span>
-        <button type="button" class="dl-del" onclick="rmDrop(${i},${di})">✕</button>
-      </div>`).join('');
-    return `
-    <div class="serie-block-c ${hasDrops?'has-drops':''}">
-      <div class="serie-head-c">
-        <span class="sh-num">${i+1}ª</span>
-        <span class="sh-val">${fmtSerieLoad(fakeExo,s.load)} × ${s.reps}${s.rest?` <span class="set-rest">· ${fmtClock(s.rest*1000)}</span>`:''}</span>
-        <button type="button" class="drop-toggle-c ${hasDrops?'active':''}" onclick="toggleDropC(${i})">${dropLabel}</button>
-        <button type="button" class="sh-del" onclick="rmSerie(${i})">✕</button>
+    // quedas inline: → 30kg×8
+    const dropTags = drops.map((d,di)=>
+      `<span class="drop-tag">${fmtSerieLoad(fakeExo,d.load)}×${d.reps} <button type="button" onclick="rmDrop(${i},${di})">✕</button></span>`
+    ).join('');
+    // mini-form de queda (sempre visível se toggled)
+    const dropForm = `<div class="drop-inline-form" id="dif${i}" style="display:none">
+      <span class="dl-arrow">→</span>
+      <input id="diL${i}" type="number" min="0" step="0.5" placeholder="kg" style="width:64px">
+      <span class="drop-x">×</span>
+      <input id="diR${i}" type="number" min="0" placeholder="reps" style="width:64px">
+      <button type="button" class="btn btn-red btn-sm" onclick="addDropC(${i})">＋</button>
+    </div>`;
+    return `<div class="drop-chip-wrap">
+      <div class="serie-chip2">
+        <span class="sc-num">${i+1}ª</span>
+        <span class="sc-val">${fmtSerieLoad(fakeExo,s.load)} × ${s.reps}</span>
+        ${dropTags}
+        <button type="button" class="sc-drop" onclick="toggleDropC(${i})">↘</button>
+        <button type="button" class="sc-del" onclick="rmSerie(${i})">✕</button>
       </div>
-      <div class="drops-section-c" id="dropsC${i}" style="display:${hasDrops?'block':'none'}">
-        <div class="drops-list-c">${dropLines}</div>
-        <div class="drop-add-c">
-          <input id="dcLoad${i}" type="number" min="0" step="0.5" placeholder="Carga">
-          <span class="drop-x">×</span>
-          <input id="dcReps${i}" type="number" min="0" placeholder="Reps">
-          <button type="button" class="btn btn-red btn-sm" onclick="addDropC(${i})">＋ Queda</button>
-        </div>
-      </div>
+      ${dropForm}
     </div>`;
   }).join('');
 }
 function rmSerie(i){ draftSeries.splice(i,1); renderDraftSeries(); }
 
-// ── Dropset (Opção C) ──
+// ── Dropset simplificado ──
 function toggleDropC(i){
-  const sec=$(`#dropsC${i}`); if(!sec) return;
-  const open=sec.style.display==='none';
-  sec.style.display=open?'block':'none';
-  if(open){ const l=$(`#dcLoad${i}`); if(l) l.focus(); }
+  const f=$(`#dif${i}`); if(!f) return;
+  const open=f.style.display==='none';
+  f.style.display=open?'flex':'none';
+  if(open){ const l=$(`#diL${i}`); if(l) l.focus(); }
 }
 function addDropC(i){
-  const load=+$(`#dcLoad${i}`)?.value||0;
-  const reps=+$(`#dcReps${i}`)?.value||0;
-  if(!reps){ toast('Informe as repetições da queda'); return; }
+  const load=+$(`#diL${i}`)?.value||0;
+  const reps=+$(`#diR${i}`)?.value||0;
+  if(!reps){ toast('Informe as reps da queda'); return; }
   if(!draftSeries[i].drops) draftSeries[i].drops=[];
   draftSeries[i].drops.push({load,reps,done:true});
   renderDraftSeries();
-  // reabre a seção e foca no campo de carga para a próxima queda
-  const sec=$(`#dropsC${i}`); if(sec) sec.style.display='block';
-  const l=$(`#dcLoad${i}`); if(l){ l.value=''; l.focus(); }
-  const r=$(`#dcReps${i}`); if(r) r.value='';
+  // reabre o form pra próxima queda
+  const f=$(`#dif${i}`); if(f) f.style.display='flex';
+  const l=$(`#diL${i}`); if(l){ l.value=''; l.focus(); }
+  const r=$(`#diR${i}`); if(r) r.value='';
 }
 function rmDrop(i,di){
   if(draftSeries[i]?.drops) draftSeries[i].drops.splice(di,1);
   renderDraftSeries();
-  // mantém a seção aberta se ainda tiver drops
-  if((draftSeries[i]?.drops||[]).length){
-    const sec=$(`#dropsC${i}`); if(sec) sec.style.display='block';
-  }
 }
 function addSerie(){
   const load=+$('#tLoad').value||0, reps=+$('#tReps').value||0;
@@ -4054,21 +4035,24 @@ function getStoryData(){
 
   // Relatório detalhado: exercício + cada série com carga e repetições.
   const exercises = exos.map(e=>{
-    const m=loadMult(e);
     const series = exoSeries(e).map((s,i)=>({
       n:i+1,
       load:Number(s.load||0),
       reps:Number(s.reps||0),
       done:!!s.done,
       loadLabel:fmtSerieLoad(e, Number(s.load||0)),
-      vol:serieVolume(e,s)
+      drops:(s.drops||[]).map(d=>({
+        load:Number(d.load||0),
+        reps:Number(d.reps||0),
+        loadLabel:fmtSerieLoad(e, Number(d.load||0))
+      }))
     }));
-    const realTop = exoTopSet(e); // usa a função já testada — pega o máximo real
+    const realTop = exoTopSet(e);
     return {
       name:e.name||'Exercício',
       group:e.group||'',
       loadType:exoLoadType(e),
-      topLoad: fmtSerieLoad(e, realTop), // label correto do top (ex: "170kg" ou "2×32kg")
+      topLoad: fmtSerieLoad(e, realTop),
       topKg: realTop,
       volume:exoVolume(e),
       doneVolume:exoDoneVolume(e),
@@ -4218,7 +4202,12 @@ function drawStoryReportStory(){
     ctx.font='700 38px Oswald, sans-serif';
     storyText(ctx, String(e.name||'EXERCÍCIO').toUpperCase(), PAD, y, W-PAD*2, 40);
 
-    // séries compactas numa linha (carga × reps)
+    // séries compactas numa linha (carga × reps, com drops inline)
+    const seriesTxt=(e.series||[]).map(s=>{
+      let t=`${s.loadLabel||s.load+'kg'}×${s.reps}`;
+      if(s.drops&&s.drops.length) t+=' '+s.drops.map(d=>`→${d.loadLabel||d.load+'kg'}×${d.reps}`).join(' ');
+      return t;
+    }).join('  ·  ');
     ctx.fillStyle='rgba(232,229,220,.38)';
     ctx.font='26px Oswald, sans-serif';
     storyText(ctx, seriesTxt, PAD, y+50, W-PAD*2, 30);
